@@ -21,11 +21,13 @@ global.db = mongoose.connect(
 // Use
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const favicon = require("serve-favicon");
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "img", "logoB.png")));
 
@@ -33,10 +35,10 @@ app.use(favicon(path.join(__dirname, "public", "img", "logoB.png")));
 const front = require("./src/routes/front.routers");
 const api = require("./src/routes/api.routers");
 
-app.use("/", front);
 app.use("/api/", api);
+app.use("/", front);
 
-// Status Scenario
+// Status 404 Scenario
 app.use((req, res) =>
   res.status(404).sendFile(path.join(__dirname, "public/404Error.html"))
 );

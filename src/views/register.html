@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Página de Cadastro</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+        }
+
+        h1 {
+        text-align: center;
+        padding: 20px 0;
+        }
+
+        form {
+        max-width: 300px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        }
+
+        input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+        background-color: #45a049;
+        }
+  </style>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+    $(document).ready(function() {
+      $('form').submit(function(e) {
+        e.preventDefault(); // Impede o envio do formulário tradicional
+        var username = $('#username').val();
+        var password = $('#password').val();
+        
+        $.ajax({
+          type: 'POST',
+          url: './api/register', // URL do arquivo PHP que processará o cadastro
+          data: {
+            username: username,
+            password: password
+          },
+          success: function(response) {
+            // Lógica de sucesso do AJAX
+            alert(response); // Exibe a resposta do servidor (pode ser modificada)
+          },
+          error: function(xhr, status, error) {
+            // Lógica de erro do AJAX
+            alert('Ocorreu um erro: ' + error); // Exibe o erro (pode ser modificada)
+          }
+        });
+      });
+    });
+  </script>
+  </head>
+  <body>
+    <h1>Página de Cadastro</h1>
+    <form>
+      <label for="username">Nome de usuário:</label>
+      <input type="text" id="username" name="username" required><br>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required><br>
+      <input type="submit" value="Cadastrar">
+    </form>
+  </body>
+</html>
