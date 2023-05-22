@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 const generateJwt = (data) => {
-  const privateKey = process.env.PRIVATE_KEY;
+  const privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, "\n");
   const payload = {
     ...data,
     exp: Math.floor(Date.now() / 1000) + 60 * 60 * 10,
@@ -14,7 +14,7 @@ const generateJwt = (data) => {
 };
 
 const verifyJwt = (token) => {
-  const publicKey = process.env.PUBLIC_KEY;
+  const publicKey = process.env.PUBLIC_KEY.replace(/\\n/g, "\n");
 
   try {
     const decoded = jwt.verify(token, publicKey, { algorithms: ["RS256"] });
