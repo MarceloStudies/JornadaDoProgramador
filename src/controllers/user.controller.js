@@ -50,3 +50,13 @@ exports.login = async (req, res) => {
     res.status(500);
   }
 };
+
+exports.show = async (req, res) => {
+  try {
+    var foundUser = await User.find();
+
+    res.json(foundUser);
+  } catch (error) {
+    res.status(500);
+  }
+};
