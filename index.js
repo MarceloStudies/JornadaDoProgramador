@@ -7,6 +7,8 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+console.log(process.env.MONGO_USERNAME);
+
 const OperationPort = process.env.SISTEM_PORT || 3000;
 
 // DataBase
