@@ -50,3 +50,5 @@ app.listen(OperationPort, () => {
     "Para desligar o server, digite: ctrl + C"
   );
 });
+
+module.exports = app;
