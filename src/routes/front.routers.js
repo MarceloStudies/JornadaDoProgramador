@@ -1,22 +1,22 @@
 const express = require("express");
-const view = require("../utils/views");
 const router = express.Router();
 const path = require("path");
 
 var accessMiddleware = require("../middlewares/access.middleware");
 
-router.get("/", function (req, res) {
-  res.send(`Sistema`);
+router.get(["/", "/home"], function (req, res) {
+  res.render("home");
 });
 
-router.get("/register", (req, res) => {
-  res.sendFile(view.get("register"));
+router.get("/sign", (req, res) => {
+  res.render("sign");
 });
 
-router.get("/login", (req, res) => {
-  res.sendFile(view.get("login"));
-});
+router.use(accessMiddleware.auth);
 
-//router.use(accessMiddleware.auth);
+router.get("/game", (req, res) => {
+  console.log(req.session);
+  res.render("game", { title: "Game", user: req.session.user });
+});
 
 module.exports = router;

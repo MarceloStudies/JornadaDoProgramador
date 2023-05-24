@@ -7,8 +7,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-console.log(process.env.MONGO_USERNAME);
-
 const OperationPort = process.env.SISTEM_PORT || 3000;
 
 // DataBase
@@ -30,7 +28,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "src", "views"));
+
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "img", "logoB.png")));
 
 // Router

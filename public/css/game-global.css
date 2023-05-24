@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    background-color: rgba(8, 15, 34, 0.935);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 98vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgb(3, 1, 22);
+    border-radius: 15px;
+}
+
+.questionarie {
+    width: 50vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(32, 32, 32);
+    border-radius: 10px;
+    color: aliceblue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.header-quest {
+    width: 97%;
+    border: 1px solid rgb(78, 78, 78);
+    margin: 4px;
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.body-quest {
+    width: 97%;
+    border: 1px solid rgb(78, 78, 78);
+    margin: 4px;
+    padding: 10px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.answer-quest {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.response {
+    display: flex;
+    align-items: center;
+}
+
+.styled-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #007AFF;
+    outline: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.styled-checkbox:checked {
+    background-color: #007AFF;
+}
+
+.checkbox-label {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 2px solid #dadfe4;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+}
+
+
+
+.short-phrase {
+    font-size: 16px;
+    color: #FFFFFF;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

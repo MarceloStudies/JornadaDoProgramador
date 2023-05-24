@@ -7,11 +7,22 @@ exports.auth = async (req, res, next) => {
   try {
     var token = JWT.verifyJwt(accessToken);
 
-    console.log(res);
+    if (token == null) {
+      res.status(200).render("error401");
+    } else {
+      session = {};
 
-    if (token == null) res.send("error");
-    else {
-      req.accessToken = token;
+      session.user = await User.findOne({ username: token.username })
+        .select({
+          _id: 0,
+          username: 1,
+          password: 1,
+        })
+        .exec();
+
+      session.accessToken = token;
+
+      req.session = session;
 
       next();
     }
