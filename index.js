@@ -39,13 +39,11 @@ app.use(favicon(path.join(__dirname, "public", "img", "logoB.png")));
 const front = require("./src/routes/front.routers");
 const api = require("./src/routes/api.routers");
 
-app.use("/api/", api);
 app.use("/", front);
+app.use("/api/", api);
 
 // Status 404 Scenario
-app.use((req, res) =>
-  res.status(404).sendFile(path.join(__dirname, "public/404Error.html"))
-);
+app.use((req, res) => res.status(404).render("error404"));
 
 // Start System
 app.listen(OperationPort, () => {

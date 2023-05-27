@@ -8,7 +8,7 @@ exports.auth = async (req, res, next) => {
     var token = JWT.verifyJwt(accessToken);
 
     if (token == null) {
-      res.status(200).render("error401");
+      res.status(401).render("error401");
     } else {
       session = {};
 
