@@ -4,7 +4,7 @@ const SALT_WORK_FACTOR = 10;
 
 var UserSchema = mongoose.Schema(
   {
-    username: {
+    nickname: {
       type: String,
       required: true,
       index: {
@@ -14,6 +14,12 @@ var UserSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
     },
   },
   { collection: "Users" }

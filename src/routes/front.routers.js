@@ -12,9 +12,7 @@ router.get("/sign", (req, res) => {
   res.render("sign");
 });
 
-router.use(accessMiddleware.auth);
-
-router.get("/game", (req, res) => {
+router.get("/game", accessMiddleware.auth, (req, res) => {
   console.log(req.session);
   res.render("game", { title: "Game", user: req.session.user });
 });

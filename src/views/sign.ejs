@@ -5,113 +5,71 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="./public/css/sign.css" />
+
   <title>Iniciar Sessão</title>
 </head>
 
 <body>
   <div class="container" id="container">
-    <div class="form-container sign-up-container">
-      <form action="#">
-        <h1>Crie sua conta</h1>
 
-        <input type="text" placeholder="Name" />
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
-        <button>Sign Up</button>
+    <div class="form-container sign-up-container">
+      <form id="signUpForm" action="#">
+        <h4>Crie sua conta</h4>
+
+        <p id="signUpRequestMessage" class="m-0 mt-3 mb-1 invisible">.</p>
+
+        <input id="signUpName" class="my-1 form-control" type="text" placeholder="Name" />
+        <input id="signUpNickname" class="my-1 form-control" type="text" placeholder="Nickname" />
+        <input id="signUpEmail" class="my-1 form-control" type="email" placeholder="Email" />
+        <input id="signUpPassword" class="my-1 form-control" type="password" placeholder="Senha" />
+
+        <button id="signUpSubmit" class="mt-3" type="submit">CADASTRAR-SE</button>
       </form>
     </div>
+
     <div class="form-container sign-in-container">
-      <form action="#">
-        <h1>Sign in</h1>
-        <input type="email" placeholder="Email" />
-        <input type="password" placeholder="Password" />
+      <form id="signInForm" action="https://chat.openai.com/">
+        <h4>Entre com sua conta</h4>
+
+        <p id="signInRequestMessage" class="m-0 mt-3 mb-1 invisible">.</p>
+
+        <input id="signInNickname" class="my-1 form-control" type="text" placeholder="Nickname" />
+        <input id="signInPassword" class="my-1 form-control" type="password" placeholder="Senha" />
+
         <a href="#">Esqueceu sua senha?</a>
-        <button>Sign In</button>
+
+        <button id="signInSubmit" class="mt-3" type="submit">ENTRAR</button>
       </form>
     </div>
+
     <div class="overlay-container">
+
       <div class="overlay">
         <div class="overlay-panel overlay-left">
-          <h1>Bem-vindo de volta!</h1>
-          <p>É aqui onde o filho chora e a mae nao ve!</p>
-          <button class="ghost" id="signIn">Sign In</button>
+          <h2>Bem-vindo de volta!</h2>
+          <p>Se você já tem uma conta, clique no botão abaixo e faça login.</p>
+          <button class="ghost" id="signIn">ENTRAR</button>
         </div>
+
         <div class="overlay-panel overlay-right">
-          <h1>Fala cachorro do morro!</h1>
-          <p>Entre nas aventura de Jolemar</p>
-          <button class="ghost" id="signUp">Sign Up</button>
+          <h2>Ainda não tem uma conta?</h2>
+          <p>Se voçê ainda não tem uma conta, clique no botão abaixo e crie uma.</p>
+          <button class="ghost" id="signUp">CRIAR UMA CONTA</button>
         </div>
       </div>
+
     </div>
+
   </div>
 
   <footer></footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
-    const signUpButton = document.getElementById("signUp");
-    const signInButton = document.getElementById("signIn");
-    const container = document.getElementById("container");
-
-    signUpButton.addEventListener("click", () => {
-      container.classList.add("right-panel-active");
-    });
-
-    signInButton.addEventListener("click", () => {
-      container.classList.remove("right-panel-active");
-    });
-
-    $(document).ready(function() {
-      $('form').submit(function(e) {
-        e.preventDefault(); // Impede o envio do formulário tradicional
-        var username = $('#username').val();
-        var password = $('#password').val();
-
-        $.ajax({
-          type: 'POST',
-          url: './api/register', // URL do arquivo PHP que processará o cadastro
-          data: {
-            username: username,
-            password: password
-          },
-          success: function(response) {
-            // Lógica de sucesso do AJAX
-            alert(response); // Exibe a resposta do servidor (pode ser modificada)
-          },
-          error: function(xhr, status, error) {
-            // Lógica de erro do AJAX
-            alert('Ocorreu um erro: ' + error); // Exibe o erro (pode ser modificada)
-          }
-        });
-      });
-    });
-
-    $(document).ready(function() {
-      $('form').submit(function(e) {
-        e.preventDefault(); // Impede o envio do formulário tradicional
-        var username = $('#username').val();
-        var password = $('#password').val();
-
-        $.ajax({
-          type: 'GET',
-          url: './api/login', // URL do arquivo PHP que processará o login
-          data: {
-            username: username,
-            password: password
-          },
-          success: function(response) {
-            // Lógica de sucesso do AJAX
-            alert(response); // Exibe a resposta do servidor (pode ser modificada)
-          },
-          error: function(xhr, status, error) {
-            // Lógica de erro do AJAX
-            alert('Ocorreu um erro: ' + error); // Exibe o erro (pode ser modificada)
-          }
-        });
-      });
-    });
-  </script>
+  <script src="./public/js/sign.js"></script>
 </body>
 
 </html>

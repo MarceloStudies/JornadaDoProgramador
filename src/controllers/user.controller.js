@@ -3,29 +3,33 @@ const JWT = require("../utils/jwt");
 const bcrypt = require("bcrypt");
 
 exports.register = async (req, res) => {
-  var { username, password } = req.body;
-
   try {
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ nickname: req.body.nickname });
 
-    if (existingUser) {
+    if (existingUser)
       return res.status(400).json({ message: "Usuário já existe" });
-    }
 
-    const newUser = new User({ username: username, password: password });
+    const newUser = new User(req.body);
+
     await newUser.save();
 
     res.status(200).json({ message: "Usuário registrado com sucesso" });
   } catch (error) {
-    res.status(500);
+    res.status(500).json({
+      message:
+        "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+    });
   }
 };
 
 exports.login = async (req, res) => {
-  var { username, password } = req.query;
+  var { nickname, password } = req.query;
 
   try {
-    var foundUser = await User.findOne({ username: username });
+    var foundUser = await User.findOne({ nickname: nickname });
+
+    if (!foundUser)
+      return res.status(400).json({ message: "Usuario ou senha incorretos." });
 
     bcrypt.compare(password, foundUser.password, (err, isMatch) => {
       if (err || !isMatch)
@@ -34,20 +38,24 @@ exports.login = async (req, res) => {
         });
 
       var token = JWT.generateJwt({
-        username: foundUser.username,
+        nickname: foundUser.nickname,
       });
 
-      res.cookie("accessToken", token, {
-        maxAge: 100000 * (36 * 24) * 11,
-        httpOnly: true,
-      });
-
-      res.status(200).json({
-        message: "Usuario logado com sucesso.",
-      });
+      res
+        .cookie("accessToken", token, {
+          maxAge: 100000 * (36 * 24) * 11,
+          httpOnly: true,
+        })
+        .status(200)
+        .json({
+          message: "Usuario logado com sucesso.",
+        });
     });
   } catch (error) {
-    res.status(500);
+    res.status(500).json({
+      message:
+        "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+    });
   }
 };
 

@@ -11,8 +11,6 @@ router.route("/register").post(userController.register);
 
 router.route("/login").get(userController.login);
 
-router.route("/show").get(userController.show);
-
-//Erro interno do servidor. Por favor, tente novamente mais tarde.
+router.route("/show").get(accessMiddleware.auth, userController.show);
 
 module.exports = router;
