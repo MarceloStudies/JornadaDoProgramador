@@ -12,11 +12,12 @@ exports.auth = async (req, res, next) => {
     } else {
       session = {};
 
-      session.user = await User.findOne({ username: token.username })
+      session.user = await User.findOne({ nickname: token.nickname })
         .select({
           _id: 0,
-          username: 1,
-          password: 1,
+          nickname: 1,
+          name: 1,
+          email: 1,
         })
         .exec();
 

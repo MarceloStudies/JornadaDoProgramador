@@ -11,6 +11,10 @@ router.route("/register").post(userController.register);
 
 router.route("/login").get(userController.login);
 
-router.route("/show").get(accessMiddleware.auth, userController.show);
+router.route("/user").put(accessMiddleware.auth, userController.update);
+
+router.route("/user").delete(accessMiddleware.auth, userController.delete);
+
+router.route("/show").get(userController.show);
 
 module.exports = router;

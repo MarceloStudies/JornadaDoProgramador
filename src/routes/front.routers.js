@@ -14,7 +14,11 @@ router.get("/sign", (req, res) => {
 
 router.get("/game", accessMiddleware.auth, (req, res) => {
   console.log(req.session);
-  res.render("game", { title: "Game", user: req.session.user });
+  res.render("game", { user: req.session.user });
+});
+
+router.get("/profile", accessMiddleware.auth, (req, res) => {
+  res.render("profile", { session: req.session });
 });
 
 module.exports = router;

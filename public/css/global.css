@@ -1,0 +1,19 @@
+:root {
+  --base_R: 24;
+  --base_G: 37;
+  --base_B: 56;
+  --base_FULL: rgb(var(--base_R), var(--base_G), var(--base_B));
+
+  --second_base_R: 83;
+  --second_base_G: 95;
+  --second_base_B: 215;
+  --second_base_FULL: rgb(
+    var(--second_base_R),
+    var(--second_base_G),
+    var(--second_base_B)
+  );
+}
+
+.giant-font {
+  font-size: 4.5rem;
+}

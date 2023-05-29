@@ -59,6 +59,45 @@ exports.login = async (req, res) => {
   }
 };
 
+exports.update = async (req, res) => {
+  var nickname = req.session.user.nickname;
+
+  try {
+    var foundUser = await User.findOneAndUpdate(
+      { nickname: nickname },
+      req.body
+    );
+
+    if (!foundUser)
+      return res.status(400).json({ message: "Sessão expirada." });
+    else
+      return res
+        .status(200)
+        .json({ message: "Usuário atualizado com sucesso" });
+  } catch (error) {
+    res.status(500).json({
+      message:
+        "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+    });
+  }
+};
+
+exports.delete = async (req, res) => {
+  var nickname = req.session.user.nickname;
+
+  try {
+    await await User.deleteOne({ nickname: nickname });
+
+    res.clearCookie("accessToken");
+    res.status(200).json({ message: "Usuário deletado com sucesso" });
+  } catch (error) {
+    res.status(500).json({
+      message:
+        "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+    });
+  }
+};
+
 exports.show = async (req, res) => {
   try {
     var foundUser = await User.find();
