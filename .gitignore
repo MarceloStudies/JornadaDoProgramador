@@ -1,6 +1,9 @@
 # Temps
 .temp*
 
+# tool
+.tool-versions
+
 # Vscode
 .vscode
 
