@@ -3,6 +3,7 @@
 
 # tool
 .tool-versions
+.DS_Store
 
 # Vscode
 .vscode
