@@ -1,0 +1,44 @@
+.blue-back {
+  background-color: rgba(var(--base_R), var(--base_G), var(--base_B), 5%);
+  border: 2px solid rgba(var(--base_R), var(--base_G), var(--base_B), 15%);
+  border-radius: 10px;
+}
+
+.user-image-card {
+  position: relative;
+  padding: 5px;
+  width: fit-content;
+  height: fit-content;
+}
+
+.user-image-card img {
+  width: 175px;
+  height: 175px;
+}
+
+.user-image-card div {
+  padding: 5px;
+  background-color: #f1f1f1;
+  border: 2px solid #b8b8b8;
+  border-radius: 100%;
+  opacity: 0.9;
+  position: absolute;
+  bottom: 7px;
+  right: 7px;
+}
+
+.user-image-card div img {
+  width: 25px;
+  height: 25px;
+}
+
+.user-info-card {
+  position: relative;
+  padding: 10px 10px 50px 10px;
+}
+
+.user-info-card .user-info-card-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
