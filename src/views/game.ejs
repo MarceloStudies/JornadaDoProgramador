@@ -29,8 +29,10 @@
   <body>
     <%- include('./partials/nav'); %>
 
-    <div id="exercise">
-      <div class="terminal">
+    <div id="game">
+      <canvas id="map" style="position: absolute"></canvas>
+
+      <div class="terminal" style="display: none;">
         <div class="terminal-header">
           <div class="terminal-buttons">
             <div class="terminal-button red"></div>
@@ -79,7 +81,6 @@
         </div>
       </div>
     </div>
-    <canvas id="map" style="position: absolute"></canvas>
 
     <script src="./public/js/data/audio.js"></script>
     <script src="./public/js/classes.js"></script>
@@ -89,14 +90,7 @@
 
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/public/js/terminal.js"></script>
-
+    <script src="./public/js/terminal.js"></script>
     <script src="./public/js/index.js"></script>
-
-    <script>
-      $(document).ready(function () {
-        alert("Olá, seja bem vindo ao jogo!");
-      });
-    </script>
   </body>
 </html>
