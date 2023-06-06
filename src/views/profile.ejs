@@ -1,89 +1,278 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link rel="stylesheet" href="./public/css/global.css" />
-  <link rel="stylesheet" href="./public/css/nav.css" />
-  <link rel="stylesheet" href="./public/css/profile.css" />
-
-  <title>Perfil</title>
-</head>
-
-<body>
-
-  <%- include('./partials/nav'); %>
-
-  <section>
-    <div class="w-100 d-flex justify-content-center my-5">
-      <p class="giant-font mx-0 my-2 text-center">Sejá bem vindo <%= session.user.name %>!!</p>
-    </div>
-
-    <div class="blue-back mx-4 p-3 position-relative">
-      <div class="w-100 d-flex flex-row align-items-center">
-
-        <div class="user-image-card">
-          <img class="" src="./public/img/perfil_default.png">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/public/css/profile.css" />
+  </head>
+  <body>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <div class="container bootstrap snippets bootdey">
+      <div class="row">
+        <div class="profile-nav col-md-3">
+          <div class="panel">
+            <div class="user-heading round">
+              <a href="#">
+                <img
+                  src="https://wallpapers.com/images/hd/gaming-profile-pictures-tmjjc9v0w80azoeh.jpg"
+                  alt
+                />
+              </a>
+              <h1>Marcelo Gonçalves</h1>
+            </div>
+            <ul class="nav nav-pills nav-stacked">
+              <li class="active">
+                <a href="#"> <i class="fa fa-user"></i> Perfil</a>
+              </li>
+              <li>
+                <a href="#">
+                  <i class="fa fa-archive"></i> Arquivos
+                  <span class="label label-warning pull-right r-activity"
+                    >9</span
+                  ></a
+                >
+              </li>
+              <li>
+                <a href="#"> <i class="fa fa-edit"></i> Editar perfil</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="profile-info col-md-9">
+          <div class="panel">
+            <div class="bio-graph-heading">
+              Aliquam ac magna metus. Nam sed arcu non tellus fringilla
+              fringilla ut vel ispum. Aliquam ac magna metus.
+            </div>
+            <div class="panel-body bio-graph-info">
+              <h1>Informações do Perfil</h1>
+              <div class="row">
+                <div class="bio-row">
+                  <p><span> Nome </span>: Marcelo Gonçalves</p>
+                </div>
+                <div class="bio-row">
+                  <p><span>País </span>: Brasil</p>
+                </div>
+                <div class="bio-row">
+                  <p><span>Data Nasc.</span>: 21/01/2003</p>
+                </div>
+                <div class="bio-row">
+                  <p><span>Email </span>: marceloluiz_sg@hotmail.com</p>
+                </div>
+                <div class="bio-row">
+                  <p><span>Celular </span>: (12) 03 4567890</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <div>
-            <img class="" src="./public/img/troca.png">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="panel">
+                  <div class="panel-body">
+                    <div class="bio-chart">
+                      <div style="display: inline; width: 100px; height: 100px">
+                        <canvas width="100" height="100px"></canvas
+                        ><input
+                          class="knob"
+                          data-width="100"
+                          data-height="100"
+                          data-displayprevious="true"
+                          data-thickness=".2"
+                          value="35"
+                          data-fgcolor="#e06b7d"
+                          data-bgcolor="#e8e8e8"
+                          style="
+                            width: 54px;
+                            height: 33px;
+                            position: absolute;
+                            vertical-align: middle;
+                            margin-top: 33px;
+                            margin-left: -77px;
+                            border: 0px;
+                            font-weight: bold;
+                            font-style: normal;
+                            font-variant: normal;
+                            font-stretch: normal;
+                            font-size: 20px;
+                            line-height: normal;
+                            font-family: Arial;
+                            text-align: center;
+                            padding: 0px;
+                            -webkit-appearance: none;
+                            background: none;
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="bio-desk">
+                      <h4 class="red">Alguma coisa aqui</h4>
+                      <p>sdadasdasdada</p>
+                      <p>dsdadasasdada</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel">
+                  <div class="panel-body">
+                    <div class="bio-chart">
+                      <div style="display: inline; width: 100px; height: 100px">
+                        <canvas width="100" height="100px"></canvas
+                        ><input
+                          class="knob"
+                          data-width="100"
+                          data-height="100"
+                          data-displayprevious="true"
+                          data-thickness=".2"
+                          value="63"
+                          data-fgcolor="#4CC5CD"
+                          data-bgcolor="#e8e8e8"
+                          style="
+                            width: 54px;
+                            height: 33px;
+                            position: absolute;
+                            vertical-align: middle;
+                            margin-top: 33px;
+                            margin-left: -77px;
+                            border: 0px;
+                            font-weight: bold;
+                            font-style: normal;
+                            font-variant: normal;
+                            font-stretch: normal;
+                            font-size: 20px;
+                            line-height: normal;
+                            font-family: Arial;
+                            text-align: center;
+                            color: rgb(76, 197, 205);
+                            padding: 0px;
+                            -webkit-appearance: none;
+                            background: none;
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="bio-desk">
+                      <h4 class="terques">Alguma coisa aqui</h4>
+                      <p>sdadasdasdada</p>
+                      <p>dsdadasasdada</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel">
+                  <div class="panel-body">
+                    <div class="bio-chart">
+                      <div style="display: inline; width: 100px; height: 100px">
+                        <canvas width="100" height="100px"></canvas
+                        ><input
+                          class="knob"
+                          data-width="100"
+                          data-height="100"
+                          data-displayprevious="true"
+                          data-thickness=".2"
+                          value="75"
+                          data-fgcolor="#96be4b"
+                          data-bgcolor="#e8e8e8"
+                          style="
+                            width: 54px;
+                            height: 33px;
+                            position: absolute;
+                            vertical-align: middle;
+                            margin-top: 33px;
+                            margin-left: -77px;
+                            border: 0px;
+                            font-weight: bold;
+                            font-style: normal;
+                            font-variant: normal;
+                            font-stretch: normal;
+                            font-size: 20px;
+                            line-height: normal;
+                            font-family: Arial;
+                            text-align: center;
+                            color: rgb(150, 190, 75);
+                            padding: 0px;
+                            -webkit-appearance: none;
+                            background: none;
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="bio-desk">
+                      <h4 class="green">Alguma coisa aqui</h4>
+                      <p>sdadasdasdada</p>
+                      <p>dsdadasasdada</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="panel">
+                  <div class="panel-body">
+                    <div class="bio-chart">
+                      <div style="display: inline; width: 100px; height: 100px">
+                        <canvas width="100" height="100px"></canvas
+                        ><input
+                          class="knob"
+                          data-width="100"
+                          data-height="100"
+                          data-displayprevious="true"
+                          data-thickness=".2"
+                          value="50"
+                          data-fgcolor="#cba4db"
+                          data-bgcolor="#e8e8e8"
+                          style="
+                            width: 54px;
+                            height: 33px;
+                            position: absolute;
+                            vertical-align: middle;
+                            margin-top: 33px;
+                            margin-left: -77px;
+                            border: 0px;
+                            font-weight: bold;
+                            font-style: normal;
+                            font-variant: normal;
+                            font-stretch: normal;
+                            font-size: 20px;
+                            line-height: normal;
+                            font-family: Arial;
+                            text-align: center;
+                            color: rgb(203, 164, 219);
+                            padding: 0px;
+                            -webkit-appearance: none;
+                            background: none;
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="bio-desk">
+                      <h4 class="purple">Alguma coisa aqui</h4>
+                      <p>sdadasdasdada</p>
+                      <p>dsdadasasdada</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="blue-back user-info-card w-100 ms-3 px-4 py-3">
-          <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <p>Nivel: 0</p>
-            </div>
-          </div>
-
-          <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <label class="col-form-label">Nome: </label>
-            </div>
-            <div class="col-auto">
-              <input id="name" type="text" class="form-control" value="<%= session.user.name %>">
-            </div>
-          </div>
-
-          <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <label class="col-form-label">Email: </label>
-            </div>
-            <div class="col-auto">
-              <input id="email" type="email" class="form-control" value="<%= session.user.email %>">
-            </div>
-          </div>
-
-          <div class="row g-3 align-items-center">
-            <div class="col-auto">
-              <label class="col-form-label">Senha: </label>
-            </div>
-            <div class="col-auto">
-              <input id="pass" type="password" class="form-control" value="#####">
-            </div>
-          </div>
-
-          <div class="user-info-card-btn btn-group">
-            <button id="deleteProfile" class="btn btn-outline-danger">DELETAR PERFIL</button>
-            <button id="saverProfile" class="btn btn-outline-success">SALVAR PERFIL</button>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="blue-back w-100 mt-3 px-4 py-3">
-        <p class="w-100 fs-4 m-0">Conquistas:</p>
       </div>
     </div>
-  </section>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="./public/js/profile.js"></script>
-</body>
-
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
 </html>

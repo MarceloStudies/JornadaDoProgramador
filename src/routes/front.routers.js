@@ -19,5 +19,8 @@ router.get("/game", accessMiddleware.auth, (req, res) => {
 router.get("/profile", accessMiddleware.auth, (req, res) => {
   res.render("profile", { session: req.session });
 });
+router.get("/terminal", accessMiddleware.auth, (req, res) => {
+  res.render("terminal", { session: req.session });
+});
 
 module.exports = router;
