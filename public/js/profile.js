@@ -55,7 +55,7 @@ $(document).ready(function () {
           alert(response.message);
 
           setTimeout(() => {
-            window.location.reload();
+            window.location.replace("./profile");
           }, 1000);
         },
         error: function (xhr, status, error) {

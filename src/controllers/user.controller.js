@@ -2,6 +2,8 @@ const User = require("../models/user.model");
 const JWT = require("../utils/jwt");
 const bcrypt = require("bcrypt");
 
+const SALT_WORK_FACTOR = 10;
+
 exports.register = async (req, res) => {
   try {
     const existingUser = await User.findOne({ nickname: req.body.nickname });
@@ -60,20 +62,30 @@ exports.login = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  var nickname = req.session.user.nickname;
-
   try {
-    var foundUser = await User.findOneAndUpdate(
-      { nickname: nickname },
-      req.body
-    );
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+      if (err) return res.status(400).json({ message: "Sessão expirada." });
 
-    if (!foundUser)
-      return res.status(400).json({ message: "Sessão expirada." });
-    else
-      return res
-        .status(200)
-        .json({ message: "Usuário atualizado com sucesso" });
+      bcrypt.hash(req.body.password, salt, async function (err, hash) {
+        if (err) return res.status(400).json({ message: "Sessão expirada." });
+
+        var nickname = req.session.user.nickname;
+
+        req.body.password = hash;
+
+        var foundUser = await User.findOneAndUpdate(
+          { nickname: nickname },
+          req.body
+        );
+
+        if (!foundUser)
+          return res.status(400).json({ message: "Sessão expirada." });
+        else
+          return res
+            .status(200)
+            .json({ message: "Usuário atualizado com sucesso" });
+      });
+    });
   } catch (error) {
     res.status(500).json({
       message:
