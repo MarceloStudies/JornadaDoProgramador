@@ -1,0 +1,64 @@
+<%-include("./partials/header")-%>
+<body class="bg-primary dark:bg-primarydark">
+  <main
+    class="flex justify-center items-center bg-primary dark:bg-primarydark sm:w-4/8 h-full px-2 sm:mx-4"
+  >
+    <div
+      class="flex flex-col justify-between w-full lg:w-4/8 h-3/5 max-w-3xl bg-secondary dark:bg-secondarydark rounded shadow-xl"
+    >
+      <div
+        class="flex flex-col w-full rounded h-20 shadow-lg bg-tertiary dark:bg-tertiarydark p-3 group transition ease-in delay-150 opacity-0"
+      >
+        <h3
+          id="title-card"
+          class="self-center text-xl mb-1 font-bold text-text1 dark:text-text1dark tracking-wide group-hover:text-text3 dark:group-hover:text-text3dark"
+        >
+          Pergunta <span id="numberQuest"></span>
+        </h3>
+        <div>
+          <p
+            id="question"
+            class="text-lg text-text1 dark:text-text1dark font-semibold group-hover:underline"
+          ></p>
+        </div>
+      </div>
+      <div
+        id="body-card"
+        class="flex w-full h-3/4 p-3 text-md rounded items-center sm:items-start md:text-lg text-text1 dark:text-text1dark text-justify"
+      >
+        <ul
+          id="optionPlace"
+          class="flex flex-col my-4 transition ease-in delay-500 opacity-0"
+        ></ul>
+      </div>
+      <div
+        class="flex w-full h-14 outline outline-2 outline-primary dark:outline-primarydark dark:bg-tertiarydark border-text2 dark:border-text2dark"
+      >
+        <button
+          id="btnCancel"
+          class="w-1/2 border-r-2 transition-colors duration-400 border-tertiary dark:border-primarydark hover:bg-tertiary dark:hover:bg-tertiarydark hover:text-text3 dark:hover:text-text3dark"
+        >
+          Sair
+        </button>
+        <button
+          id="btnNext"
+          class="w-1/2 transition-colors duration-400 border-tertiary dark:border-primarydark dark:hover:bg-tertiarydark hover:text-text2 dark:hover:text-text3dark"
+        >
+          Próxima
+        </button>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".transition").addClass("opacity-100");
+      });
+    </script>
+
+    <script src="/public/js/exam.js"></script>
+  </main>
+
+</body>

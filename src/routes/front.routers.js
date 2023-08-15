@@ -11,10 +11,17 @@ router.get(["/", "/home"], function (req, res) {
 router.get("/sign", (req, res) => {
   res.render("sign");
 });
+router.get("/color", (req, res) => {
+  res.render("color-palet");
+});
 
 router.get("/game", accessMiddleware.auth, (req, res) => {
   res.render("game", { user: req.session.user });
 });
+
+
+
+
 
 router.get("/profile/", accessMiddleware.auth, (req, res) => {
   res.render("profile", { session: req.session });
