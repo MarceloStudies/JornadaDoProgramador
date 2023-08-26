@@ -1,8 +1,7 @@
 #map{
-    position: absolute;
-    height: calc(100% - 90px);
-    width: 100%;
-    top: 90px;
+    height: calc(100% - 50px);
+    width:99%;
+    top: auto;
 
 }
 
