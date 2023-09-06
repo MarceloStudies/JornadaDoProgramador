@@ -4,11 +4,12 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      ontFamily: {
+      fontFamily: {
         sans: ['Roboto', 'Arial', 'sans-serif'],
         heading: ['Montserrat', 'Helvetica', 'sans-serif'],
         body: ['Open Sans', 'Arial', 'sans-serif'],
-        tech: ['Source Code Pro', 'monospace'], // Adicionando uma fonte com toque de tecnologia
+        nameProfile:  ['StayPixelRegular-EaOxl', 'sans'],
+        tech: ['Source Code Pro', 'monospace'], 
       },
       colors: {
         primary: '#0077CC',

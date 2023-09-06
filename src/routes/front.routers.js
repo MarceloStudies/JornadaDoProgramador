@@ -11,6 +11,9 @@ router.get(["/", "/home"], function (req, res) {
 router.get("/sign", (req, res) => {
   res.render("sign");
 });
+router.get("/exam", (req, res) => {
+  res.render("exam");
+});
 router.get("/color", (req, res) => {
   res.render("color-palet");
 });

@@ -1,10 +1,12 @@
 <%-include("./partials/header")-%>
+<%-include("./partials/loader")-%>
 
-  <body class="bg-primary">
+  <body class="bg-primary bg-[url('/public/img/game/texture-stone-border.avif')]">
   <%-include("./partials/navbar")-%>
 
 
-  <div id="game" class="flex justify-center mt-8">
+
+  <div id="game" class="flex justify-center mt-8 bg-[url('/public/img/game/texture-stone-border.avif')] bg-repeat">
       <canvas id="map" class=""></canvas>
 
       <div class="terminal" style="display: none;">
@@ -67,5 +69,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./public/js/terminal.js"></script>
     <script src="./public/js/index.js"></script>
+    <script>
+     // create a script that wait 3s for show the canva game and remove the loader
+      setTimeout(() => {
+        document.querySelector(".loader-content").style.display = "none";
+        
+      }, 3000);
+
+    </script>
   </body>
 </html>

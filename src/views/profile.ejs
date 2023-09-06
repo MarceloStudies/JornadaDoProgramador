@@ -1,62 +1,61 @@
 <%-include("./partials/header")-%>
 
-<body class="bg-primary dark:bg-primarydark w-full h-full">
+<body
+  class="bg-[url('/public/img/background-texture.jpg')] dark:bg-primarydark w-full font-tech h-full"
+>
+  <%-include("./partials/navbar")-%>
 
   <main class="h-full w-auto flex justify-center">
     <div class="h-full w-full sm:w-5/6 flex flex-col">
-      <div
-        class="user-information rounded flex flex-row w-full h-2/5 mt-1 bg-[url('https://img.freepik.com/premium-vector/mountains-background_203633-432.jpg')] bg-cover bg-center"
-      >
-        <!-- User Information -->
-        <div class="user-information-person flex w-2/5 items-center">
-          <div
-            class="user-content bg-[url('https://png.pngtree.com/png-clipart/20230802/original/pngtree-ancient-paper-scroll-1-torn-objects-medieval-vector-picture-image_9234841.png')] bg-cover bg-center rounded-b-lg flex w-full h-4/5 m-2"
-          ></div>
-        </div>
+      <div class="user-menu flex flex-col md:flex-row w-full h-full mt-3">
         <div
-          class="user-profile-attribute w-2/4 flex justify-center text-center items-center"
+          class="menu-friends w-full md:w-2/6 h-full mr-1 rounded-sm bg-slate-600 flex md:flex-col mb-2"
         >
-          <div class="user-text">
-            <img
-              class="w-48 h-44 border border-cyan-100 rounded-full"
-              src="https://mir-s3-cdn-cf.behance.net/projects/202/6467b333840174.Y3JvcCw5ODYsNzcyLDExOSww.jpg"
-              alt=""
-            />
-            <div class="user-name bg-stone-700">
-              <h1 class="text-2xl text-white rounded">Nome do Usuário</h1>
-              <label for="level-user" class="text-white"> Level 1</label>
-              <progress id="level-user" name="level-user" value="32" max="100">
-                32%
-              </progress>
+          <div class="menu w-full h-2/6">
+            <div
+              class="user-profile-attribute w-full h-full[] flex justify-center text-center items-center"
+            >
+              <div
+                class="user-text flex flex-col justify-center items-center h-full"
+              >
+                <img
+                  class="w-48 h-44 border border-cyan-100 rounded-full"
+                  src="https://mir-s3-cdn-cf.behance.net/projects/202/6467b333840174.Y3JvcCw5ODYsNzcyLDExOSww.jpg"
+                  alt=""
+                />
+                <div
+                  class="user-name bg-[url('/public/img/profile/name-element.png')]"
+                >
+                  <h1 class="text-2xl text-white font-nameProfile rounded">
+                    Nome do Usuário
+                  </h1>
+                  <label for="level-user" class="text-white"> Level 1</label>
+                  <progress
+                    id="level-user"
+                    name="level-user"
+                    value="32"
+                    max="100"
+                  >
+                    32%
+                  </progress>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="user-information-person flex w-2/5 items-center">
-          <div
-            class="user-content flex-col justify-center text-center bg-[url('https://png.pngtree.com/png-clipart/20230802/original/pngtree-ancient-paper-scroll-1-torn-objects-medieval-vector-picture-image_9234841.png')] bg-cover bg-center rounded-b-lg flex w-full h-4/5 m-2"
-          >
-            <p class="bg-gray-600 self-center rounded text-white w-3/4 mt-3">
-              Email: marcelo@gmail.com
-            </p>
-            <p class="bg-gray-600 self-center rounded text-white w-3/4 mt-3">
-              Email: marcelo@gmail.com
-            </p>
-            <p class="bg-gray-600 self-center rounded text-white w-3/4 mt-3">
-              Email: marcelo@gmail.com
-            </p>
-            <p class="bg-gray-600 self-center rounded text-white w-3/4 mt-3">
-              Email: marcelo@gmail.com
-            </p>
+          <div class="friends w-full h-1/2">
+            <div class="friends-title w-full h-1/6 bg-pink-500"></div>
+            <div class="friends-content w-full h-5/6 bg-slate-700"></div>
           </div>
         </div>
-      </div>
-      <div class="user-menu flex flex-row w-full h-full mt-3">
-        <div class="menu-friends w-2/6 h-full bg-slate-400 flex flex-col">
-
-        </div>
-        <div class="profile-datas w-full h-full ">
-          <div class="menu-medals w-full h-1/2 bg-slate-500 "></div>
-          <div class="menu-graphs w-full h-1/2 bg-slate-700 "></div>
+        <div class="profile-datas w-full h-full">
+          <div class="menu-medals w-full h-1/2 bg-slate-500">
+            <div class="menu-title w-full h-1/6 bg-red-500"></div>
+            <div class="menu-content w-full h-5/6 bg-green-700"></div>
+          </div>
+          <div class="menu-graphs w-full h-1/2 bg-slate-700">
+            <div class="menu-title w-full h-1/6 bg-red-500"></div>
+            <div class="menu-content w-full h-5/6 bg-green-700"></div>
+          </div>
         </div>
       </div>
     </div>
