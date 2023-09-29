@@ -1,69 +1,86 @@
-<%-include("./partials/header")-%>
-
-<body
-  class="bg-[url('/public/img/background-texture.jpg')] dark:bg-primarydark w-full font-tech h-full"
+<div
+  class="profile-container fixed bg-primarydark bg-opacity-50 first-letter w-1/2 h-2/4 flex flex-col rounded-md hidden"
 >
-  <%-include("./partials/navbar")-%>
-
-  <main class="h-full w-auto flex justify-center">
-    <div class="h-full w-full sm:w-5/6 flex flex-col">
-      <div class="user-menu flex flex-col md:flex-row w-full h-full mt-3">
-        <div
-          class="menu-friends w-full md:w-2/6 h-full mr-1 rounded-sm bg-slate-600 flex md:flex-col mb-2"
-        >
-          <div class="menu w-full h-2/6">
-            <div
-              class="user-profile-attribute w-full h-full[] flex justify-center text-center items-center"
-            >
-              <div
-                class="user-text flex flex-col justify-center items-center h-full"
-              >
-                <img
-                  class="w-48 h-44 border border-cyan-100 rounded-full"
-                  src="https://mir-s3-cdn-cf.behance.net/projects/202/6467b333840174.Y3JvcCw5ODYsNzcyLDExOSww.jpg"
-                  alt=""
-                />
-                <div
-                  class="user-name bg-[url('/public/img/profile/name-element.png')]"
-                >
-                  <h1 class="text-2xl text-white font-nameProfile rounded">
-                    Nome do Usuário
-                  </h1>
-                  <label for="level-user" class="text-white"> Level 1</label>
-                  <progress
-                    id="level-user"
-                    name="level-user"
-                    value="32"
-                    max="100"
-                  >
-                    32%
-                  </progress>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="friends w-full h-1/2">
-            <div class="friends-title w-full h-1/6 bg-pink-500"></div>
-            <div class="friends-content w-full h-5/6 bg-slate-700"></div>
-          </div>
-        </div>
-        <div class="profile-datas w-full h-full">
-          <div class="menu-medals w-full h-1/2 bg-slate-500">
-            <div class="menu-title w-full h-1/6 bg-red-500"></div>
-            <div class="menu-content w-full h-5/6 bg-green-700"></div>
-          </div>
-          <div class="menu-graphs w-full h-1/2 bg-slate-700">
-            <div class="menu-title w-full h-1/6 bg-red-500"></div>
-            <div class="menu-content w-full h-5/6 bg-green-700"></div>
-          </div>
-        </div>
+  <div
+    class="profile-header w-full h-8 bg-primarydark flex flex-row items-center justify-start pl-3"
+  >
+    <button id="ocultarDiv"><i class="bx bxs-home"></i></button>
+  </div>
+  <div class="profile-area-user w-full h-1/2 flex flex-row">
+    <div
+      class="profile-avatar w-1/2 h-full flex justify-center items-center flex-col"
+    >
+      <img
+        class="w-38 h-34 border rounded-sm"
+        src="https://mir-s3-cdn-cf.behance.net/projects/202/6467b333840174.Y3JvcCw5ODYsNzcyLDExOSww.jpg"
+        alt=""
+      />
+      <div class="profile-name-user mt-2 text-white">
+        <span id="name">Marcelo Gonçalves</span>
       </div>
     </div>
-  </main>
 
-  <script
-    data-cfasync="false"
-    src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
-  ></script>
-  <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-</body>
+    <div
+      class="profile-avatar w-1/2 gap-2 h-full flex justify-center items-center flex-col"
+    >
+      <div class="item">
+        <label for="name" class="bg-inherit">Nome:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="bg-slate-700 text-white rounded-md w-1/2 h-7 p-1"
+        />
+      </div>
+      <div class="item">
+        <label for="name" class="bg-inherit">Nome:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="bg-slate-700 text-white rounded-md w-1/2 h-7 p-1"
+        />
+      </div>
+      <div class="item">
+        <label for="name" class="bg-inherit">Nome:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="bg-slate-700 text-white rounded-md w-1/2 h-7 p-1"
+        />
+      </div>
+      <div class="item">
+        <label for="name" class="bg-inherit">Nome:</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="bg-slate-700 text-white rounded-md w-1/2 h-7 p-1"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-area-data border-t-2 my-2 w-full h-1/2 flex flex-row">
+    <div
+      class="profile-user-att w-1/2 h-full text-white flex justify-center items-center"
+    >
+      <ul class="list-none">
+        <li><i class="bx bxs-bolt bx-border-circle"></i>Acertos: 15/23</li>
+        <li><i class="bx bxs-invader bx-border-circle"></i>Erros: 15/23</li>
+        <li><i class="bx bxs-shield bx-border-circle"></i>Medalhas: 15/23</li>
+        <li><i class="bx bxs-medal bx-border-circle"></i>Medal: 15/23</li>
+        <li><i class="bx bxs-heart bx-border-circle"></i>Acertos: 15/23</li>
+      </ul>
+    </div>
+
+    <div
+      class="profile-user-att w-1/2 h-full text-white flex justify-center items-center"
+    >
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<script src="/public/js/profile.js"></script>

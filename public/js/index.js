@@ -343,6 +343,7 @@ $(document).ready(function() {
           })
         ) {
           plot_terminal();
+          plot_dialog();
         }
       }
       keys.e.pressed = false;

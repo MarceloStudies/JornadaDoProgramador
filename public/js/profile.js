@@ -64,4 +64,44 @@ $(document).ready(function () {
       });
     }
   });
+
+  // MOSTRAR CARD PROFILE
+  $("#mostrarDiv").click(function () {
+    var $profileContainer = $(".profile-container");
+
+    if ($profileContainer.hasClass("hidden")) {
+      $profileContainer.removeClass("hidden");
+      $profileContainer.addClass("animate-slide-right");
+      $profileContainer.removeClass("animate-slide-left");
+    } else {
+      $profileContainer.removeClass("animate-slide-right");
+      $profileContainer.addClass("animate-slide-left");
+      setTimeout(function () {
+        $profileContainer.addClass("hidden");
+      }, 500);
+    }
+  });
+
+  // graficos
+  const ctx = document.getElementById("myChart");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [
+        {
+          data: [12, 19, 3, 5, 2, 3],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 });

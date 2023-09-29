@@ -13,10 +13,10 @@ const OperationPort = process.env.SISTEM_PORT || 3000;
 const mongoose = require("mongoose");
 const credentials = require("./src/configs/credentials");
 
-mongoose.set("strictQuery", true);
-global.db = mongoose.connect(
+ mongoose.set("strictQuery", true);
+ global.db = mongoose.connect(
   `mongodb+srv://${credentials.USERNAME}:${credentials.PASSWORD}@${credentials.HOST}/${credentials.DB}?retryWrites=true&w=majority`
-);
+ );
 
 // Use
 const cors = require("cors");
