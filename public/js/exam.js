@@ -35,8 +35,12 @@ $(document).ready(function () {
   $("#exam").examMaker(questions);
 
   $("#btnCancel").on("click", function () {
+    $("#card-exam").removeClass("ease-out");
+    $("#card-exam").addClass("ease-in");
+    $("#card-exam").addClass("opacity-0");
+    $("#card-exam").addClass("hidden");
 
-    window.location.href = "/";
+    
   });
 
 });
@@ -55,8 +59,8 @@ $.fn.examMaker = function (questions) {
 
     questions[currentQuestion].options.forEach((option, index) => {
       optionPlace.append(
-        `<li class="flex gap-2 pb-4 group">
-    <input type="radio" class="radio-answer" name="answer" value="${index}" />
+        `<li class="flex align-baseline gap-2 pb-4 group">
+    <input type="radio" class="radio-answer text-white bg-white" name="answer" value="${index}" />
     <p class="text-answer group-hover:underline">
       ${option}
     </p>

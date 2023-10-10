@@ -1,293 +1,46 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>O que sera?</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Heebo:400,700|IBM+Plex+Sans:600"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./public/css/home.css" />
-    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-  </head>
+<%-include("./partials/header")-%>
 
-  <body class="is-boxed has-animations is-loaded lights-off">
-    <div class="body-wrap boxed-container">
-      <header class="site-header">
-        <div class="container">
-          <div class="site-header-inner">
-            <div class="brand header-brand">
-              <h1 class="m-0">
-                <a href="#">
-                  <img
-                    class="header-logo-image logo asset-dark"
-                    src="./public/img/logoC.png"
-                    alt="Logo"
-                  />
-                </a>
-              </h1>
-            </div>
+<body class="bg-[url('/public/img/background-home.jpg')] bg-cover w-full h-full flex flex-row ">
+    <div class=" bg-primarydark opacity-70 flex  w-full h-full rounded-md flex-col justify-center">
+     <!-- HEADER NAV -->
+      <div class="flex flex-row   justify-center  w-4/5  h-12  top-0  ">
+          <!-- LEFT SIZE HEADER  -->
+          <div class="flex w-1/4 h-full  justify-start   ">
+            <img class="pr-2" src="/public/img/logoC.png" alt="">
+            <span class=" font-tech text-white text-md font-bold self-center"> Nome do Projeto</span>
           </div>
-        </div>
-      </header>
-      <main>
-        <section class="hero">
-          <div class="container">
-            <div class="hero-inner">
-              <div class="hero-copy">
-                <h1 class="hero-title mt-0">Jornada do Programar</h1>
-                <p class="hero-paragraph">
-                  Bem-vindo à "Jornada do Programador"! Embarque nessa aventura
-                  épica em um cenário medieval repleto de desafios e perigos.
-                  Neste game web baseado em JavaScript, você será o herói
-                  destinado a salvar o mundo do temido vírus chamado Tróia.
-                  Prepare-se para uma experiência emocionante que combina
-                  elementos de fantasia com a lógica de programação.
-                </p>
-                <div class="hero-cta">
-                  <a class="button button-primary" href="./sign"
-                    >Acesse agora</a
-                  >
-                </div>
-              </div>
-              <div class="hero-media">
-                <div class="header-illustration">
-                  <img
-                    class="header-illustration-image asset-dark"
-                    src="./public/img/header-illustration-dark.svg"
-                    alt="Header illustration"
-                  />
-                </div>
-                <div class="hero-media-illustration">
-                  <img
-                    class="hero-media-illustration-image asset-dark"
+          <!-- LEFT SIZE HEADER  -->
 
-
-                  />
-                </div>
-                <div class="hero-media-container">
-                  <img
-                    style="width: 400px; height: 450px"
-                    class="hero-media-image asset-dark"
-                    src="../../public/img/guy.png"
-                    alt="Hero media"
-                  />
-                </div>
-              </div>
-            </div>
+          <!-- CENTER SIZE HEADER -->
+          <div class="flex w-1/2 h-full   font-tech text-white justify-center gap-x-10 items-center ">
+            <span class=" hover:border-b-4 hover:border-primary hover:text-cyan-400 ">HOME</span>
+            <span class=" hover:border-b-4 hover:border-primary hover:text-cyan-400 ">SOBRE</span>
+            <span class=" hover:border-b-4 hover:border-primary hover:text-cyan-400 ">CONTATO</span>
           </div>
-        </section>
+          <!-- CENTER SIZE HEADER -->
 
-        <section class="features section">
-          <div class="container">
-            <div class="features-inner section-inner has-bottom-divider">
-              <div class="features-header text-center">
-                <div class="container-sm">
-                  <h2 class="section-title mt-0">Desafios</h2>
-                  <p class="section-paragraph">
-                    Sua missão é enfrentar uma série de exercícios desafiadores
-                    relacionados à lógica de programação. À medida que você
-                    avança na jornada, encontrará personagens não jogáveis
-                    (NPCs) que estarão prontos para ajudá-lo. Esses NPCs estão
-                    conectados ao ChatGPT, uma inteligência artificial avançada
-                    capaz de responder suas perguntas e fornecer orientações
-                    valiosas.
-                  </p>
-                  <div class="features-image">
-                    <img
-                      class="features-illustration asset-dark"
-                      src="./public/img/features-illustration-dark.svg"
-                      alt="Feature illustration"
-                    />
-                    <img
-                      class="features-box asset-dark"
-                      src="../../public/img/map-2.png"
-                      alt="Feature box"
-                    />
-                    <img
-                      class="features-illustration asset-dark"
-                      
-
-                  </div>
-                </div>
-              </div>
-              <div class="features-wrap">
-                <div class="feature is-revealing">
-                  <div class="feature-inner">
-                    <div class="feature-icon">
-                      <img
-                        class="asset-dark"
-                        src="./public/img/feature-01-dark.svg"
-                        alt="Feature 01"
-                      />
-                    </div>
-                    <div class="feature-content">
-                      <h3 class="feature-title mt-0">Causa</h3>
-                      <p class="text-sm mb-0">
-                        O mundo está ameaçado pelo vírus Tróia, que se espalha
-                        rapidamente, corrompendo tudo em seu caminho. Somente
-                        resolvendo os exercícios de lógica de programação, você
-                        poderá destruir o Tróia e restaurar a paz e a ordem.
-                        Prepare sua mente para enfrentar desafios cada vez mais
-                        complexos e torne-se um verdadeiro mestre da
-                        programação.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="feature is-revealing">
-                  <div class="feature-inner">
-                    <div class="feature-icon">
-                      <img
-                        class="asset-dark"
-                        src="./public/img/feature-02-dark.svg"
-                        alt="Feature 02"
-                      />
-                    </div>
-                    <div class="feature-content">
-                      <h3 class="feature-title mt-0">Explore</h3>
-                      <p class="text-sm mb-0">
-                        Explore cenários deslumbrantes, repletos de castelos
-                        imponentes, florestas encantadas e masmorras sombrias.
-                        Cada ambiente traz consigo novos quebra-cabeças e
-                        enigmas a serem resolvidos. Desvende o código, utilize
-                        estruturas de controle e algoritmos inteligentes para
-                        superar obstáculos e progredir em sua missão.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="feature is-revealing">
-                  <div class="feature-inner">
-                    <div class="feature-icon">
-                      <img
-                        class="asset-dark"
-                        src="./public/img/feature-03-dark.svg"
-                        alt="Feature 03"
-                      />
-                    </div>
-                    <div class="feature-content">
-                      <h3 class="feature-title mt-0">Inédito</h3>
-                      <p class="text-sm mb-0">
-                        A "Jornada do Programador" é mais do que apenas um jogo.
-                        É uma oportunidade única de aprimorar suas habilidades
-                        de programação enquanto se diverte. A medida que você
-                        avança no jogo, estará fortalecendo sua compreensão da
-                        lógica e aprimorando sua capacidade de resolver
-                        problemas complexos. Prepare-se para uma experiência
-                        imersiva e enriquecedora.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- RIGHT SIZE HEADER -->
+          <div class="flex justify-end items-center w-1/4 h-full  ">
+            <button class=" font-tech text-sm text-white bg-cyan-400 h-10 p-2 rounded-md hover:bg-cyan-700 ">Cadastrar ou Entrar</button>
           </div>
-        </section>
+          <!-- RIGHT SIZE HEADER -->
+      </div>
+      <!-- HEADER NAV -->
 
-        <section class="cta section">
-          <div class="container-sm">
-            <div class="cta-inner section-inner">
-              <div class="cta-header text-center">
-                <h2 class="section-title mt-0">Entre nessa jornada.</h2>
-                <p class="section-paragraph">
-                  Junte-se a nós nesta emocionante jornada em busca do
-                  conhecimento e da vitória sobre o vírus Tróia. Esteja
-                  preparado para desafios emocionantes, personagens cativantes e
-                  um mundo cheio de surpresas. Aventure-se pelo universo da
-                  lógica de programação e torne-se um verdadeiro herói da
-                  programação. O destino do mundo está em suas mãos!
-                </p>
-                <div class="cta-cta">
-                  <a class="button button-primary" href="#">ACESSAR</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+
+      <!-- BODY -->
+      <main class="bg-red-800 flex flex-col justify-center pt-2 w-full h-4/5 overflow-x-hidden">
+
       </main>
 
-      <footer class="site-footer has-top-divider">
-        <div class="container">
-          <div class="site-footer-inner">
-            <div class="brand footer-brand">
-              <a href="#">
-                <img
-                  class="logo asset-dark"
-                  src="./public/img/logoC.png"
-                  alt="Logo"
-                />
-              </a>
-            </div>
-            <ul class="footer-links list-reset">
-              <li>
-                <a href="#">Contact</a>
-              </li>
-              <li>
-                <a href="#">About us</a>
-              </li>
-              <li>
-                <a href="#">FAQ's</a>
-              </li>
-              <li>
-                <a href="#">Support</a>
-              </li>
-            </ul>
-            <ul class="footer-social-links list-reset">
-              <li>
-                <a href="#">
-                  <span class="screen-reader-text">Facebook</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z"
-                      fill="#FFF"
-                    />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="screen-reader-text">Twitter</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 3c-.6.3-1.2.4-1.9.5.7-.4 1.2-1 1.4-1.8-.6.4-1.3.6-2.1.8-.6-.6-1.5-1-2.4-1-1.7 0-3.2 1.5-3.2 3.3 0 .3 0 .5.1.7-2.7-.1-5.2-1.4-6.8-3.4-.3.5-.4 1-.4 1.7 0 1.1.6 2.1 1.5 2.7-.5 0-1-.2-1.5-.4C.7 7.7 1.8 9 3.3 9.3c-.3.1-.6.1-.9.1-.2 0-.4 0-.6-.1.4 1.3 1.6 2.3 3.1 2.3-1.1.9-2.5 1.4-4.1 1.4H0c1.5.9 3.2 1.5 5 1.5 6 0 9.3-5 9.3-9.3v-.4C15 4.3 15.6 3.7 16 3z"
-                      fill="#FFF"
-                    />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <span class="screen-reader-text">Google</span>
-                  <svg
-                    width="16"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z"
-                      fill="#FFF"
-                    />
-                  </svg>
-                </a>
-              </li>
-            </ul>
-            <div class="footer-copyright">&copy; 2023, tg dos meninos</div>
-          </div>
-        </div>
-      </footer>
-    </div>
 
-    <script src="./public/js/main.min.js"></script>
-  </body>
-</html>
+
+
+
+    </div>
+  
+
+
+
+<%-include("./partials/footer")-%>
+</body>

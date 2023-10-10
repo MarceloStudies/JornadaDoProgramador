@@ -131,7 +131,7 @@ $(document).ready(function () {
           );
 
           setTimeout(() => {
-            window.location.replace("./profile");
+            window.location.replace("./game");
           }, 2000);
         },
         error: function (xhr, status, error) {

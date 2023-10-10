@@ -4,27 +4,28 @@
     class="flex justify-center items-center bg-primary dark:bg-primarydark sm:w-4/8 h-full px-2 sm:mx-4"
   >
     <div
-      class="flex flex-col justify-between w-full lg:w-4/8 h-3/5 max-w-3xl bg-secondary dark:bg-secondarydark rounded shadow-xl"
+      id="card-exam"
+      class="flex flex-col text-white bg-primarydark bg-opacity-50 justify-between w-full lg:w-4/8 h-3/5 max-w-3xl   rounded shadow-xl"
     >
       <div
-        class="flex flex-col w-full rounded h-20 shadow-lg bg-tertiary dark:bg-tertiarydark p-3 group transition ease-in delay-150 opacity-0"
+        class="flex flex-col w-full  rounded h-20 shadow-lg bg-primarydark   p-3 group transition ease-in delay-150 opacity-0"
       >
         <h3
           id="title-card"
-          class="self-center text-xl mb-1 font-bold text-text1 dark:text-text1dark tracking-wide group-hover:text-text3 dark:group-hover:text-text3dark"
+          class="self-center text-xl mb-1 font-bold tracking-wide group-hover:text-text3 dark:group-hover:text-text3dark"
         >
           Pergunta <span id="numberQuest"></span>
         </h3>
         <div>
           <p
             id="question"
-            class="text-lg text-text1 dark:text-text1dark font-semibold group-hover:underline"
+            class="text-lg  font-semibold group-hover:underline"
           ></p>
         </div>
       </div>
       <div
         id="body-card"
-        class="flex w-full h-3/4 p-3 text-md rounded items-center sm:items-start md:text-lg text-text1 dark:text-text1dark text-justify"
+        class="flex w-full h-3/4 p-3 text-md rounded items-center sm:items-start md:text-lg text-justify"
       >
         <ul
           id="optionPlace"
@@ -36,13 +37,13 @@
       >
         <button
           id="btnCancel"
-          class="w-1/2 border-r-2 transition-colors duration-400 border-tertiary dark:border-primarydark hover:bg-tertiary dark:hover:bg-tertiarydark hover:text-text3 dark:hover:text-text3dark"
+          class="w-1/2 border-r-2 transition-colors duration-400 "
         >
           Sair
         </button>
         <button
           id="btnNext"
-          class="w-1/2 transition-colors duration-400 border-tertiary dark:border-primarydark dark:hover:bg-tertiarydark hover:text-text2 dark:hover:text-text3dark"
+          class="w-1/2 transition-colors duration-400 "
         >
           Próxima
         </button>

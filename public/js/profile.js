@@ -1,3 +1,4 @@
+
 function isNull(variable) {
   if (variable == "" || variable == null || variable === undefined) return true;
 
@@ -5,6 +6,8 @@ function isNull(variable) {
 }
 
 $(document).ready(function () {
+
+  
   $("#deleteProfile").on("click", () => {
     $.ajax({
       type: "DELETE",
