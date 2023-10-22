@@ -1,13 +1,10 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
-$(document).ready(function() {
+$(document).ready(function () {
   // const canvas = document.getElementById("canvas");
 
   // Coletando a proprosão, lagura e comprimento
-  let [width, height] = [
-    $("#map").innerWidth(),
-    $("#map").innerHeight(),
-  ];
+  let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
   console.log(canvas);
   const aspectRatio = width / height;
   const canvasWidth = width;
@@ -44,7 +41,7 @@ $(document).ready(function() {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
     });
   });
@@ -60,23 +57,30 @@ $(document).ready(function() {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
     });
   });
 
   // instanciando a image
+
   const image = new Image();
-  image.src = "./public/img/map.png"; // fonte image
+  image.src = "public/img/village.png"; // fonte image
 
   const foregroundImage = new Image();
   foregroundImage.src = "./public/img/map-foreground.png";
 
-  const playerImageRight = new Image();
-  playerImageRight.src = "./public/img/troia.png"; // fonte da imagem
+  const playerForward = new Image();
+  playerForward.src = "public/img/player-forward.png";
 
-  const playerImageLeft = new Image();
-  playerImageLeft.src = "./public/img/troia-left.png"; // fonte da imagem
+  const playerBack = new Image();
+  playerBack.src = "public/img/player-back.png";
+
+  const playerLeft = new Image();
+  playerLeft.src = "public/img/player-left.png";
+
+  const playerRight = new Image();
+  playerRight.src = "public/img/player-right.png";
 
   // Inicando o controle com nenhuma tecla pressionada
   const keys = {
@@ -151,13 +155,15 @@ $(document).ready(function() {
       x: canvas.width / 2 - 672 / 4 / 2, // coordenada X,
       y: canvas.height / 2 - 96 / 2, // coordenada Y
     },
-    image: playerImageRight, // fonte da imagem
+    image: playerBack, // fonte da imagem
     frames: {
-      max: 7, // quantidade de sprites na imagem
+      max: 3, // quantidade de sprites na imagem
     },
     sprites: {
-      right: playerImageRight, // Sprite do lado direito
-      left: playerImageLeft, // Sprite do lado esquerdo
+      back: playerBack,
+      right: playerRight, // Sprite do lado direito
+      left: playerLeft, // Sprite do lado esquerdo
+      forward: playerForward,
     },
   });
 
@@ -228,6 +234,7 @@ $(document).ready(function() {
     // Andar do personagem para frente
     if (keys.w.pressed && lastKey === "w") {
       player.moving = true;
+      player.image = player.sprites.forward; // mudar de sprite
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -255,6 +262,7 @@ $(document).ready(function() {
     // Andar do personagem para tras
     if (keys.s.pressed && lastKey === "s") {
       player.moving = true;
+      player.image = player.sprites.back; // mudar de sprite
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
         if (
@@ -353,11 +361,11 @@ $(document).ready(function() {
   animation();
 
   // Audio
-  let clicked = false;
+  /* let clicked = false;
   addEventListener("click", () => {
     if (!clicked) {
       audio.Map.play();
       clicked = true;
     }
-  });
+  }); */
 });
