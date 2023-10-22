@@ -15,8 +15,8 @@ $(document).ready(function () {
   canvas.height = canvasHeigh;
 
   const collisionsMap = [];
-  for (let i = 0; i < collisions.length; i += 32) {
-    collisionsMap.push(collisions.slice(i, 32 + i));
+  for (let i = 0; i < collisions.length; i += 30) {
+    collisionsMap.push(collisions.slice(i, 30 + i));
   }
 
   const interactsMap = [];
@@ -50,7 +50,7 @@ $(document).ready(function () {
   const boundaries = [];
   collisionsMap.forEach((row, i) => {
     row.forEach((Symbol, j) => {
-      if (Symbol === 274)
+      if (Symbol === 4169)
         boundaries.push(
           new Boundary({
             position: {
@@ -67,8 +67,8 @@ $(document).ready(function () {
   const image = new Image();
   image.src = "public/img/village.png"; // fonte image
 
-  const foregroundImage = new Image();
-  foregroundImage.src = "./public/img/map-foreground.png";
+  const villageForegroundImage = new Image();
+  villageForegroundImage.src = "public/img/village-foreground.png";
 
   const playerForward = new Image();
   playerForward.src = "public/img/player-forward.png";
@@ -177,12 +177,12 @@ $(document).ready(function () {
   });
 
   // Posição do objetos sobre o personagem ex: arvore
-  const foreground = new Sprite({
+  const villageForeground = new Sprite({
     position: {
       x: offset.x,
       y: offset.y,
     },
-    image: foregroundImage,
+    image: villageForegroundImage,
   });
 
   // Entepretar a hitbox de colisão
@@ -209,7 +209,7 @@ $(document).ready(function () {
   const movables = [
     referencePoint,
     ...boundaries,
-    foreground,
+    villageForeground,
     ...interactsArray,
   ];
 
@@ -227,7 +227,7 @@ $(document).ready(function () {
     });
 
     player.draw();
-    foreground.draw();
+    villageForeground.draw();
 
     let moving = true;
     player.moving = false;
