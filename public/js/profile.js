@@ -1,4 +1,3 @@
-
 function isNull(variable) {
   if (variable == "" || variable == null || variable === undefined) return true;
 
@@ -6,8 +5,18 @@ function isNull(variable) {
 }
 
 $(document).ready(function () {
-
   
+  $.get("./api/showUserLogged", function (data) {
+    const name = data.nickname;
+    const email = data.email;
+    let points = data.pontuation
+
+
+    $("#name").val(name);
+    $("#email").val(email);
+    
+  });
+
   $("#deleteProfile").on("click", () => {
     $.ajax({
       type: "DELETE",

@@ -21,6 +21,10 @@ var UserSchema = mongoose.Schema(
     email: {
       type: String,
     },
+    pontuation:{
+      type: Number,
+      default: 10.0
+    }
   },
   { collection: "Users" }
 );
@@ -43,7 +47,7 @@ UserSchema.pre("save", function (next) {
 });
 
 UserSchema.comparePassword = async (candidatePassword, callback) => {
-  console.log("csaca");
+
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) return callback(err);
     callback(null, isMatch);

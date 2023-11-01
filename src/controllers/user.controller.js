@@ -119,3 +119,22 @@ exports.show = async (req, res) => {
     res.status(500);
   }
 };
+
+exports.showUserLogged = async (req, res) => {
+  try {
+
+    const nickname = req.session.accessToken.nickname;
+
+
+    const foundUser = await User.findOne({ nickname });
+
+    if (foundUser) {
+      res.json(foundUser);
+    } else {
+      res.status(404).json({ error: 'Usuário não encontrado.' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro interno do servidor.' });
+  }
+};

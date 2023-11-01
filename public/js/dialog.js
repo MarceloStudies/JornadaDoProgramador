@@ -7,6 +7,20 @@ function plot_dialog() {
 }
 
 $(document).ready(function () {
+
+
+  const param = ['Logica de operadores', 0, 10, 10, 4 ];
+  $.ajax({
+    type: "POST",
+    url: "/openai/generateQuestions", 
+    data: { texto: param }, 
+    success: function (response) {
+      console.log(response)
+    }
+  });
+
+
+
   $("#ocultarDiv").click(function () {
     $(".dialog-container").removeClass("animate-slide-right");
     $(".dialog-container").addClass("animate-slide-left");
@@ -16,12 +30,29 @@ $(document).ready(function () {
   });
 
   $.fn.recevideMessage = function (answer) {};
-  $("#send-message").on("click", function () {
+
+
+  const sendMessage = () =>{
+
+    var times = localStorage.getItem("times");
+    if (times == null) {
+      localStorage.setItem("times", 1);
+    } else {
+      localStorage.setItem("times", parseInt(times) + 1);
+    }
+
+    let  Qnttimes = localStorage.getItem("times");
+    if (Qnttimes > 2 ){
+      alert("Voce atingiu o limite maximo de perguntas para esse npc! ")
+      return 
+    }
+
+
     var message = $("#message").val();
 
     $.ajax({
       type: "POST",
-      url: "/openai/respondesr", 
+      url: "/openai/responder", 
       data: { texto: message }, 
       success: function (response) {
 
@@ -56,5 +87,18 @@ $(document).ready(function () {
     `);
 
     $("#message").val("");
+    
+
+  }
+
+  $("#send-message").click(function () {
+    sendMessage();
   });
+
+  $("#message").keypress(function (e) {
+    if (e.which == 13) {
+      sendMessage();
+    }
+  });
+
 });

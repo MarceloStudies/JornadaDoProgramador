@@ -19,5 +19,6 @@ router.route("/login").get(userController.login);
 router.route("/user").put(accessMiddleware.auth, userController.update);
 router.route("/user").delete(accessMiddleware.auth, userController.delete);
 router.route("/show").get(userController.show);
+router.route("/showUserLogged").get(accessMiddleware.auth, userController.showUserLogged);
 
 module.exports = router;
