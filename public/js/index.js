@@ -3,7 +3,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 $(document).ready(function () {
-  // const canvas = document.getElementById("canvas");
 
   // Coletando a proprosão, lagura e comprimento
   let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
