@@ -1,12 +1,10 @@
-
-
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
+
 $(document).ready(function () {
 
   // Coletando a proprosão, lagura e comprimento
   let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
-  console.log(canvas);
   const aspectRatio = width / height;
   const canvasWidth = width;
   const canvasHeigh = width / aspectRatio;
@@ -16,27 +14,72 @@ $(document).ready(function () {
   canvas.height = canvasHeigh;
 
   const collisionsMap = [];
-  for (let i = 0; i < collisions.length; i += 30) {
-    collisionsMap.push(collisions.slice(i, 30 + i));
+  for (let i = 0; i < collisions.length; i += 50) {
+    collisionsMap.push(collisions.slice(i, 50 + i));
   }
 
   const interactsMap = [];
-  for (let i = 0; i < interacts.length; i += 32) {
-    interactsMap.push(interacts.slice(i, 32 + i));
+  for (let i = 0; i < interacts.length; i += 50) {
+    interactsMap.push(interacts.slice(i, 50 + i));
   }
 
   // localizao do eixo X e Y onde o troia inicia
   const offset = {
-    x: -1070,
-    y: -2000,
+    x: -1650,
+    y: -2700,
   };
 
   // Criando a hitbox de interação
-  const interactsArray = [];
+  const interactionChangeMap = [];
+  const interactionChangeHouse = [];
+  const interactionChangeTavern = [];
+  const interactionChangePotion = [];
+  const interactionChangeBlackSmith = [];
+
   interactsMap.forEach((row, i) => {
     row.forEach((Symbol, j) => {
-      if (Symbol === 274)
-        interactsArray.push(
+      if (Symbol === 4171)
+        interactionChangeMap.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y,
+            },
+          }),
+        );
+
+      if (Symbol === 4170)
+        interactionChangeHouse.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y,
+            },
+          }),
+        );
+
+      if (Symbol === 4192)
+        interactionChangeTavern.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y,
+            },
+          }),
+        );
+
+      if (Symbol === 4173)
+        interactionChangePotion.push(
+          new Boundary({
+            position: {
+              x: j * Boundary.width + offset.x,
+              y: i * Boundary.height + offset.y,
+            },
+          }),
+        );
+
+      if (Symbol === 4172)
+        interactionChangeBlackSmith.push(
           new Boundary({
             position: {
               x: j * Boundary.width + offset.x,
@@ -211,7 +254,11 @@ $(document).ready(function () {
     referencePoint,
     ...boundaries,
     villageForeground,
-    ...interactsArray,
+    ...interactionChangeMap,
+    ...interactionChangeHouse,
+    ...interactionChangeTavern,
+    ...interactionChangeBlackSmith,
+    ...interactionChangePotion,
   ];
 
   // Animação
@@ -223,7 +270,27 @@ $(document).ready(function () {
       boundary.draw();
     });
 
-    interactsArray.forEach((interact) => {
+    interactionChangeMap.forEach((interact) => {
+      interact.draw();
+    });
+
+    interactionChangeHouse.forEach((interact) => {
+      interact.draw();
+    });
+
+    interactionChangeTavern.forEach((interact) => {
+      interact.draw();
+    });
+
+    interactionChangePotion.forEach((interact) => {
+      interact.draw();
+    });
+
+    interactionChangeTavern.forEach((interact) => {
+      interact.draw();
+    });
+
+    interactionChangeBlackSmith.forEach((interact) => {
       interact.draw();
     });
 
@@ -343,20 +410,68 @@ $(document).ready(function () {
     }
     // Botao de interação
     if (keys.e.pressed) {
-      for (let i = 0; i < interactsArray.length; i++) {
-        const interact = interactsArray[i];
+      for (let i = 0; i < interactionChangeMap.length; i++) {
+        const interact = interactionChangeMap[i];
         if (
           rectagularCollision({
             rectangle1: player,
             rectangle2: interact,
           })
         ) {
-          plot_terminal();
-          plot_dialog();
+          console.log("Change map");
+          // plot_terminl();
+          // plot_dialog();
         }
       }
-      keys.e.pressed = false;
+      for (let i = 0; i < interactionChangeHouse.length; i++) {
+        const interact = interactionChangeHouse[i];
+        if (
+          rectagularCollision({
+            rectangle1: player,
+            rectangle2: interact,
+          })
+        ) {
+          console.log("Change house");
+        }
+      }
+
+      for (let i = 0; i < interactionChangePotion.length; i++) {
+        const interact = interactionChangePotion[i];
+        if (
+          rectagularCollision({
+            rectangle1: player,
+            rectangle2: interact,
+          })
+        ) {
+          console.log("Change potion");
+        }
+      }
+
+      for (let i = 0; i < interactionChangeTavern.length; i++) {
+        const interact = interactionChangeTavern[i];
+        if (
+          rectagularCollision({
+            rectangle1: player,
+            rectangle2: interact,
+          })
+        ) {
+          console.log("Change tavern");
+        }
+      }
+
+      for (let i = 0; i < interactionChangeBlackSmith.length; i++) {
+        const interact = interactionChangeBlackSmith[i];
+        if (
+          rectagularCollision({
+            rectangle1: player,
+            rectangle2: interact,
+          })
+        ) {
+          console.log("Change blacksmith");
+        }
+      }
     }
+    keys.e.pressed = false;
   }
 
   animation();

@@ -13,10 +13,10 @@ const OperationPort = process.env.SISTEM_PORT || 3000;
 const mongoose = require("mongoose");
 const credentials = require("./src/configs/credentials");
 
- mongoose.set("strictQuery", true);
- global.db = mongoose.connect(
-  `mongodb+srv://${credentials.USERNAME}:${credentials.PASSWORD}@${credentials.HOST}/${credentials.DB}?retryWrites=true&w=majority`
- );
+mongoose.set("strictQuery", true);
+global.db = mongoose.connect(
+  `mongodb+srv://${credentials.USERNAME}:${credentials.PASSWORD}@${credentials.HOST}/${credentials.DB}?retryWrites=true&w=majority`,
+);
 
 // Use
 const cors = require("cors");
@@ -49,6 +49,6 @@ app.use((req, res) => res.status(404).render("error404"));
 app.listen(OperationPort, () => {
   console.log(
     "Servidor ligado e disponivel em: http://localhost:" + OperationPort,
-    "Para desligar o server, digite: ctrl + C"
+    "Para desligar o server, digite: ctrl + C",
   );
 });
