@@ -62,40 +62,25 @@ exports.login = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
+  var nickname = 'marcelo'
+
+  const { newData } = req.body; 
+
   try {
-    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
-      if (err) return res.status(400).json({ message: "Sessão expirada." });
+   
+    await User.updateOne({ nickname: nickname }, { $set: newData });
 
-      bcrypt.hash(req.body.password, salt, async function (err, hash) {
-        if (err) return res.status(400).json({ message: "Sessão expirada." });
-
-        var nickname = req.session.user.nickname;
-
-        req.body.password = hash;
-
-        var foundUser = await User.findOneAndUpdate(
-          { nickname: nickname },
-          req.body
-        );
-
-        if (!foundUser)
-          return res.status(400).json({ message: "Sessão expirada." });
-        else
-          return res
-            .status(200)
-            .json({ message: "Usuário atualizado com sucesso" });
-      });
-    });
+    res.status(200).json({ message: "Dados do usuário atualizados com sucesso" });
   } catch (error) {
     res.status(500).json({
-      message:
-        "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+      message: "Erro interno do servidor. Por favor, tente novamente mais tarde.",
     });
   }
 };
 
 exports.delete = async (req, res) => {
-  var nickname = req.session.user.nickname;
+  var nickname = req.session.accessToken.nickname;
+
 
   try {
     await await User.deleteOne({ nickname: nickname });

@@ -14,11 +14,15 @@ router.get("/", function (req, res) {
 router.route("/openai", openaiRouter);
 
 // Rotas para as operações de usuário
-router.route("/register").post(userController.register);
+
 router.route("/login").get(userController.login);
-router.route("/user").put(accessMiddleware.auth, userController.update);
-router.route("/user").delete(accessMiddleware.auth, userController.delete);
 router.route("/show").get(userController.show);
 router.route("/showUserLogged").get(accessMiddleware.auth, userController.showUserLogged);
+
+router.route("/register").post(userController.register);
+router.route("/update").post(userController.update);
+
+router.route("/user").delete(accessMiddleware.auth, userController.delete);
+router.route("/user").put(accessMiddleware.auth, userController.update);
 
 module.exports = router;
