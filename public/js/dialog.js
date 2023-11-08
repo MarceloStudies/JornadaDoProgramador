@@ -15,7 +15,8 @@ $(document).ready(function () {
     url: "/openai/generateQuestions", 
     data: { texto: param }, 
     success: function (response) {
-      console.log(response)
+      console.log("Aquii")
+      console.table(JSON.stringify(response))
     }
   });
 

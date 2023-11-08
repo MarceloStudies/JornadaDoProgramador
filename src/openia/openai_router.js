@@ -25,8 +25,10 @@ generateQuestionsPrompt = (text) => {
   //00 - tema,  01 - range ini, 02 - range de dificuldade, 03 - quantidade, 04 - quantidade de alternativa 
 
   return `Gere ${text[3]} perguntas sobre ${text[0]} que variam em no nivel de dificuldade entre ${text[1]}  a ${text[2]}
-  cada uma com ${text[4]} alternativas, coloque em formato de json e coloque a resposta para cada uma delas , mostre todos esses elementos no json os parametros e as infos
+  cada uma com ${text[4]} alternativas, coloque em formato de json e coloque a resposta para cada uma delas , mostre todos esses elementos no json os parametros e as infos, retorne em json js, nao use /n  
   `
+
+  // return `Bom dia`;
 }
 
 openaiRouter.post("/responder", async (req, res) => {
@@ -56,13 +58,13 @@ openaiRouter.post("/generateQuestions", async (req, res) => {
   try {
     const prompt = generateQuestionsPrompt(texto);
     const resp = await openai.createCompletion({
-      model: "davinci",
+      model: "gpt-3.5-turbo-0613",
       prompt: prompt,
       temperature: 0.2,
       max_tokens: 503,
     });
 
-    res.status(200).json(resp.data.choices[0]);
+    res.status(200).json(resp.data);
   } catch (error) {
     console.error(`Erro na requisição à API da OpenAI: ${error.message}`);
     res.status(500).json({ error: "Erro interno do servidor" });

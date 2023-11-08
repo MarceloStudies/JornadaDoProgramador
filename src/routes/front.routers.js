@@ -14,7 +14,7 @@ router.get("/sign", (req, res) => {
   res.render("sign");
 });
 
-// ... outras rotas de frontend ...
+
 
 // Rota para a integração com a OpenAI
 router.use("/openai", openaiRouter);
