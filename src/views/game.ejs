@@ -10,7 +10,7 @@
   <%-include("./dialog")-%>
 
       
-    <canvas id="map" class=""></canvas>
+    <canvas id="map" class="" style="display: none;"></canvas>
   <%-include("./profile")-%>
   <%-include("./ranking")-%>
 
@@ -83,7 +83,31 @@
       setTimeout(() => {
         document.querySelector(".loader-content").style.display = "none";
         
-      }, 3000);
+        $("#map").show();
+    reloadCanvas();
+
+      }, 10000);
+
+      // Função para recarregar o canvas
+  function reloadCanvas() {
+    var screenWidth = $(window).width();
+    var screenHeight = $(window).height();
+    
+    var canvas = document.getElementById("map");
+    canvas.width = screenWidth;
+    canvas.height = screenHeight;
+    var ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    showCanvasMain();
+
+  }
+
+  $(window).on('resize', function() {
+    alert('');
+    reloadCanvas();
+  });
+
 
     </script>
   </body>

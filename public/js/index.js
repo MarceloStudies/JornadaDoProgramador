@@ -3,6 +3,9 @@ const c = canvas.getContext("2d");
 
 $(document).ready(function () {
 
+
+  function showCanvasMain(){
+
   // Coletando a proprosão, lagura e comprimento
   let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
   const aspectRatio = width / height;
@@ -475,6 +478,13 @@ $(document).ready(function () {
   }
 
   animation();
+    
+  }
+
+
+  showCanvasMain();
+
+  
 
   // Audio
   /* let clicked = false;
