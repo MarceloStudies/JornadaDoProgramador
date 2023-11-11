@@ -41,7 +41,92 @@
       </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+   const topic = {
+     name: 'O que é programação',
+     questions: [
+       {
+         title: 'Questão 1',
+         alternatives: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+         correctAnswer: 'Alternativa 2',
+         difficulty: 1,
+         averageResponseTime: 30
+       },
+       {
+         title: 'Questão 2',
+         alternatives: ['Alternativa 1', 'Alternativa 2', 'Alternativa 3', 'Alternativa 4'],
+         correctAnswer: 'Alternativa 4',
+         difficulty: 2,
+         averageResponseTime: 60
+       }
+     ]
+   };
+  
+  //  $.ajax({
+  //    url: './api/createQuestions',
+  //    type: 'POST',
+  //    contentType: 'application/json',
+  //    data: JSON.stringify(topic),
+  //    success: function(response) {
+  //      console.log('Tópico criado com sucesso:', response);
+  //    },
+  //    error: function(error) {
+  //      console.error('Erro ao criar o tópico:', error);
+  //    }
+  //  });
+
+
+   $.ajax({
+      url: './api/getQuestions',
+      type: 'GET',
+      contentType: 'application/json',
+      success: function(response) {
+        console.log('Tópicos recuperados com sucesso:', response);
+      },
+      error: function(error) {
+        console.error('Erro ao recuperar os tópicos:', error);
+      }
+   });
+
+   const answer = {
+  topic: "Example Topic",
+  answer: [
+    {
+      id: 1,
+      correct: true,
+      responseTime: 120
+    },
+    // Você pode adicionar mais respostas aqui.
+  ]
+};
+
+$.ajax({
+  url: './api/saveAnswer',
+  type: 'PUT',
+  data: JSON.stringify({ nickname: "marcelo", answer: answer }),
+  contentType: "application/json; charset=utf-8",
+  dataType: "json",
+  success: function(response) {
+    console.log("Answer saved successfully.");
+  },
+  error: function(error) {
+    console.log("Error saving answer: ", error);
+  }
+});
+
+  $.ajax({
+    url: './api/showUserLogged',
+    type: 'GET',
+    success: function(response){
+      console.log(response);
+
+    }
+  })
+  });
+  
+    </script>
     <script src="/public/js/terminal.js"></script>
   </body>
 </html>

@@ -485,7 +485,7 @@ $(document).ready(function () {
   showCanvasMain();
 
   
-
+                
   // Audio
   /* let clicked = false;
   addEventListener("click", () => {

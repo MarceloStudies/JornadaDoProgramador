@@ -4,6 +4,8 @@ const router = require("express").Router();
 var userController = require("../controllers/user.controller");
 var accessMiddleware = require("../middlewares/access.middleware");
 const openaiRouter = require("../openia/openai_router");
+const topicController = require('../controllers/answer.controller');
+
 
 // Rota para o endpoint raiz "/"
 router.get("/", function (req, res) {
@@ -24,5 +26,17 @@ router.route("/update").post(userController.update);
 
 router.route("/user").delete(accessMiddleware.auth, userController.delete);
 router.route("/user").put(accessMiddleware.auth, userController.update);
+router.put('/saveAnswer', userController.saveAnswer);
+router.put('/updateFirstAccess', userController.updateFirstAccess);
+
+router.post('/createQuestions', topicController.create);
+router.get('/getQuestions', topicController.findAll);
+router.get('/getQuestions/:id', topicController.findOne);
+router.put('/updateQuestion/:id', topicController.update);
+router.delete('/deleteQuestion/:id', topicController.delete);
+router.get('/:topicName/questions/:difficulty', topicController.findQuestions);
+router.put('/updateAverageTimeQuestion', topicController.updateAverageTime);
+
+
 
 module.exports = router;

@@ -123,3 +123,42 @@ exports.showUserLogged = async (req, res) => {
     res.status(500).json({ error: 'Erro interno do servidor.' });
   }
 };
+
+exports.saveAnswer = async (req, res) => {
+  const { nickname, answer } = req.body;
+
+  try {
+    const user = await User.findOne({ nickname: nickname });
+
+    if (!user) {
+      return res.status(404).send();
+    }
+
+    user.answers.push(answer);
+    const updatedUser = await user.save();
+
+    res.send(updatedUser);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+exports.updateFirstAccess = async (req, res) => {
+  const { nickname } = req.body;
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { nickname: nickname },
+      { $set: { firstAccess: false } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).send();
+    }
+
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

@@ -2,6 +2,18 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const SALT_WORK_FACTOR = 10;
 
+const answerDetailSchema = new mongoose.Schema({
+  id: Number,
+  correct: Boolean,
+  responseTime: Number
+});
+ 
+const answerSchema = new mongoose.Schema({
+  topic: String,
+  answer: [answerDetailSchema]
+});
+
+
 var UserSchema = mongoose.Schema(
   {
     nickname: {
@@ -24,11 +36,15 @@ var UserSchema = mongoose.Schema(
     pontuation:{
       type: Number,
       default: 10.0
-    }
+    },
+    firstAccess: {
+      type: Boolean,
+      default: true
+    },
+    answers: [answerSchema]
   },
   { collection: "Users" }
 );
-
 UserSchema.pre("save", function (next) {
   var user = this;
 
@@ -53,5 +69,6 @@ UserSchema.comparePassword = async (candidatePassword, callback) => {
     callback(null, isMatch);
   });
 };
+
 
 var User = (module.exports = mongoose.model("User", UserSchema));
