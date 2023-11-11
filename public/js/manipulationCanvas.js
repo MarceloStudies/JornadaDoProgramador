@@ -23,6 +23,6 @@ showCanvasMain();
 }
 
 $(window).on('resize', function() {
-alert('');
+  
 reloadCanvas();
 });

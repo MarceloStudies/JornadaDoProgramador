@@ -6,7 +6,7 @@ const c = canvas.getContext("2d");
 $(function () {
 
 
-  function showCanvasMain(image1, image2){
+  function showCanvasMain(){
 
   // Coletando a proprosão, lagura e comprimento
   let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
@@ -114,10 +114,10 @@ $(function () {
   // instanciando a image
 
   const image = new Image();
-  image.src = image1; // fonte image
+  image.src = "public/img/village.png"; // fonte image
 
   const villageForegroundImage = new Image();
-  villageForegroundImage.src = image2;
+  villageForegroundImage.src = "public/img/village-foreground.png";
 
   const playerForward = new Image();
   playerForward.src = "public/img/player-forward.png";
@@ -449,7 +449,7 @@ $(function () {
             rectangle2: interact,
           })
         ) {
-          TradeCanvas("public/img/forest.png","public/img/forest-foreground.png")
+          console.log("Change potion");
         }
       }
 
@@ -485,40 +485,9 @@ $(function () {
   }
 
 
-  // showCanvasMain(,);
-
-  function TradeCanvas( basePath, path2) {
-
-    let link1 = null;
-    let link2 = null;
-
-    if (basePath == null || path2 == null){
-       link1 = "public/img/village.png" ; // Substitua pelo caminho base para suas imagens
-       link2 = "public/img/village-foreground.png";
-    }else{
-      link1 = basePath ; // Substitua pelo caminho base para suas imagens
-      link2 = path2;
-    }
-
-
+  showCanvasMain();
 
   
-    // Crie um novo canvas
-    var screenWidth = $(window).width();
-    var screenHeight = $(window).height();
-    
-    var canvas = document.getElementById("map");
-    canvas.width = screenWidth;
-    canvas.height = screenHeight;
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
-    showCanvasMain(link1, link2)
-  
-  }
-  
-  TradeCanvas();
                 
   // Audio
   /* let clicked = false;

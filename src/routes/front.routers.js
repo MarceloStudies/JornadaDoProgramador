@@ -24,6 +24,10 @@ router.get("/game", accessMiddleware.auth, (req, res) => {
   res.render("game", { user: req.session.user });
 });
 
+router.get("/game2", accessMiddleware.auth, (req, res) => {
+  res.render("game2", { user: req.session.user });
+});
+
 router.get("/profile", accessMiddleware.auth, (req, res) => {
   res.render("profile", { session: req.session });
 });
