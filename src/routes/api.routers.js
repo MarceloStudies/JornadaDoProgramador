@@ -26,7 +26,7 @@ router.route("/update").post(userController.update);
 
 router.route("/user").delete(accessMiddleware.auth, userController.delete);
 router.route("/user").put(accessMiddleware.auth, userController.update);
-router.put('/saveAnswer', userController.saveAnswer);
+router.post('/saveAnswer', userController.saveAnswer);
 router.put('/updateFirstAccess', userController.updateFirstAccess);
 
 router.post('/createQuestions', topicController.create);

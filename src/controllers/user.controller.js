@@ -125,24 +125,40 @@ exports.showUserLogged = async (req, res) => {
 };
 
 exports.saveAnswer = async (req, res) => {
-  const { nickname, answer } = req.body;
-
   try {
-    const user = await User.findOne({ nickname: nickname });
+    console.log('saveAnswer called'); 
 
-    if (!user) {
-      return res.status(404).send();
-    }
+    // const userId = req.user._id;
+    const { id, correct, responseTime, topic } = req.body;
 
-    user.answers.push(answer);
-    const updatedUser = await user.save();
+    // console.log('Request body:', req.body); // log the request body
 
-    res.send(updatedUser);
+    // const user = await User.findById(userId);
+    // if (!user) {
+    //   return res.status(404).json({ message: 'User not found' });
+    // }
+
+    // const answerIndex = user.answers.findIndex(answer => answer.topic === topic);
+    // const answerDetail = { id, correct, responseTime };
+
+    // if (answerIndex !== -1) {
+    //   // Topic exists, add to it
+    //   user.answers[answerIndex].answer.push(answerDetail);
+    // } else {
+    //   // Topic does not exist, create it
+    //   const answerSchema = { topic, answer: [answerDetail] };
+    //   user.answers.push(answerSchema);
+    // }
+
+    // await user.save();
+    // console.log('User saved successfully');
+
+    res.status(200).json({ message: 'Answer saved successfully' });
   } catch (error) {
-    res.status(500).send(error);
+    console.error('Error saving the answer:', error); // log the error
+    res.status(500).json({ message: 'Error saving the answer' });
   }
 };
-
 exports.updateFirstAccess = async (req, res) => {
   const { nickname } = req.body;
 

@@ -10,11 +10,11 @@ $(document).ready(function () {
     $("#card-exam").addClass("hidden");
   });
 });
-
 function callQuestions(topic) {
   $.get(`./api/${topic}/questions`, function (data) {
     const formattedData = data.map((question) => {
       return {
+        id: question._id, // assuming the id is stored in _id
         question: question.title,
         options: question.alternatives,
         correctOption: question.correctAnswer,
@@ -32,10 +32,12 @@ function examMaker(questions) {
   let currentQuestion = 0;
   let right = 0;
   let wrong = 0;
+  let startTime;
 
   $("#card-exam").removeClass("hidden");
 
   function displayQuestion() {
+    startTime = Date.now();
     $("#numberQuest").text(currentQuestion + 1);
     $("#question").text(questions[currentQuestion].question);
 
@@ -55,16 +57,36 @@ function examMaker(questions) {
   }
 
   function updateScore() {
-    if (
-      $("input[name='answer']:checked").val() ==
-      questions[currentQuestion].correctOption
-    ) {
+    const responseTime = Date.now() - startTime;
+    const selectedAnswer = $("input[name='answer']:checked").val();
+    const isCorrect = selectedAnswer == questions[currentQuestion].correctOption;
+  
+    if (isCorrect) {
       right++;
     } else {
       wrong++;
     }
+  
+    const answerDetail = {
+      id: questions[currentQuestion].id,
+      correct: isCorrect,
+      responseTime: responseTime,
+      topic: 'Variáveis e Tipos de Dados' // replace with the actual topic
+    };
+  
+    // Save answerDetail to the server
+    $.ajax({
+      url: './api/saveAnswer', // update the URL to match the new endpoint
+      type: 'POST', // change the method to POST
+      data: answerDetail,
+      success: function(response) {
+        console.log('Answer saved successfully:', response);
+      },
+      error: function(error) {
+        console.error('Error saving the answer:', error);
+      }
+    });
   }
-
   $("#btnNext").on("click", function () {
     updateScore();
 
