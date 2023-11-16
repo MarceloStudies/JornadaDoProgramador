@@ -62,25 +62,26 @@ exports.login = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-  var nickname = 'marcelo'
+  var nickname = "marcelo";
 
-  const { newData } = req.body; 
+  const { newData } = req.body;
 
   try {
-   
     await User.updateOne({ nickname: nickname }, { $set: newData });
 
-    res.status(200).json({ message: "Dados do usuário atualizados com sucesso" });
+    res
+      .status(200)
+      .json({ message: "Dados do usuário atualizados com sucesso" });
   } catch (error) {
     res.status(500).json({
-      message: "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+      message:
+        "Erro interno do servidor. Por favor, tente novamente mais tarde.",
     });
   }
 };
 
 exports.delete = async (req, res) => {
   var nickname = req.session.accessToken.nickname;
-
 
   try {
     await await User.deleteOne({ nickname: nickname });
@@ -107,20 +108,18 @@ exports.show = async (req, res) => {
 
 exports.showUserLogged = async (req, res) => {
   try {
-
     const nickname = req.session.accessToken.nickname;
-
 
     const foundUser = await User.findOne({ nickname });
 
     if (foundUser) {
       res.json(foundUser);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado.' });
+      res.status(404).json({ error: "Usuário não encontrado." });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erro interno do servidor.' });
+    res.status(500).json({ error: "Erro interno do servidor." });
   }
 };
 
@@ -166,7 +165,7 @@ exports.updateFirstAccess = async (req, res) => {
     const user = await User.findOneAndUpdate(
       { nickname: nickname },
       { $set: { firstAccess: false } },
-      { new: true }
+      { new: true },
     );
 
     if (!user) {
@@ -185,24 +184,22 @@ exports.saveUserAnswer = async (req, res) => {
 
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
-
 
     const topic = user.topics.id(topicId);
     if (topic) {
-
       topic.answerDetails.push(answerDetail);
     } else {
-
       user.topics.push({ _id: topicId, answerDetails: [answerDetail] });
     }
 
     // Save the user
     await user.save();
 
-    res.status(200).json({ message: 'User answer saved successfully' });
+    res.status(200).json({ message: "User answer saved successfully" });
   } catch (error) {
-    res.status(500).json({ message: 'An error occurred', error });
+    res.status(500).json({ message: "An error occurred", error });
   }
 };
+
