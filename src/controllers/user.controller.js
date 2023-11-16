@@ -162,3 +162,31 @@ exports.updateFirstAccess = async (req, res) => {
     res.status(500).send(error);
   }
 };
+
+exports.saveUserAnswer = async (req, res) => {
+  try {
+    const { userId, topicId, answerDetail } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+
+    const topic = user.topics.id(topicId);
+    if (topic) {
+
+      topic.answerDetails.push(answerDetail);
+    } else {
+
+      user.topics.push({ _id: topicId, answerDetails: [answerDetail] });
+    }
+
+    // Save the user
+    await user.save();
+
+    res.status(200).json({ message: 'User answer saved successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred', error });
+  }
+};

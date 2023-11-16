@@ -21,7 +21,7 @@ function generatePrompt(texto) {
 }
 
 generateQuestionsPrompt = (topic) => {
-  return `Gere 4 perguntas sobre ${topic}
+  return `Gere 8 perguntas sobre ${topic}
     cada uma com 4 alternativas, coloque em formato de json e coloque a resposta para cada uma delas , mostre todos esses elementos no json os parametros e as infos, retorne em json js, nao use /n  
     As perguntas devem estar no seguinte formato:
     {
@@ -62,7 +62,7 @@ openaiRouter.post("/generateQuestions", async (req, res) => {
   const texto = req.body.texto || "";
 
   try {
-    const prompt = generateQuestionsPrompt("texto");
+    const prompt = generateQuestionsPrompt(texto);
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,

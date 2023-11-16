@@ -45,7 +45,6 @@
     <script>
       $(document).ready(function () {
 
-
         //  $.ajax({
         //    url: './api/createQuestions',
         //    type: 'POST',
@@ -59,17 +58,17 @@
         //    }
         //  });
 
-        // $.ajax({
-        //   url: "./api/getQuestions",
-        //   type: "GET",
-        //   contentType: "application/json",
-        //   success: function (response) {
-        //     console.log("Tópicos recuperados com sucesso:", response);
-        //   },
-        //   error: function (error) {
-        //     console.error("Erro ao recuperar os tópicos:", error);
-        //   },
-        // });
+        $.ajax({
+          url: "./api/getQuestions",
+          type: "GET",
+          contentType: "application/json",
+          success: function (response) {
+            console.log("Tópicos recuperados com sucesso:", response);
+          },
+          error: function (error) {
+            console.error("Erro ao recuperar os tópicos:", error);
+          },
+        });
 
         // const answer = {
         //   topic: "Example Topic",

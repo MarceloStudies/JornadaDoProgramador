@@ -1,6 +1,8 @@
 $(document).ready(function () {
   // examMaker(questions)
 
+  callQuestions("Variáveis e Tipos de Dados");
+
   $("#btnCancel").on("click", function () {
     $("#card-exam").removeClass("ease-out");
     $("#card-exam").addClass("ease-in");

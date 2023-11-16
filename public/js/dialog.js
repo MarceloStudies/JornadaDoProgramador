@@ -7,29 +7,29 @@ function plot_dialog() {
 }
 
 $(document).ready(function () {
-  $.ajax({
-    type: "POST",
-    url: "/openai/generateQuestions",
-    data: { texto: "Operadores Lógicos" },
-    success: function (response) {
-      let jsonString = response.resposta;
-      jsonString = jsonString.replace(/\n/g, "").replace(/'/g, '"');
-      let jsonObject = JSON.parse(jsonString);
+  // $.ajax({
+  //   type: "POST",
+  //   url: "/openai/generateQuestions",
+  //   data: { texto: "Funções e Procedimentos" },
+  //   success: function (response) {
+  //     let jsonString = response.resposta;
+  //     jsonString = jsonString.replace(/\n/g, "").replace(/'/g, '"');
+  //     let jsonObject = JSON.parse(jsonString);
 
-      $.ajax({
-        url: "./api/createQuestions",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(jsonObject),
-        success: function (response) {
-          console.log("Tópico criado com sucesso:", response);
-        },
-        error: function (error) {
-          console.error("Erro ao criar o tópico:", error);
-        },
-      });
-    },
-  });
+  //     $.ajax({
+  //       url: "./api/createQuestions",
+  //       type: "POST",
+  //       contentType: "application/json",
+  //       data: JSON.stringify(jsonObject),
+  //       success: function (response) {
+  //         console.log("Tópico criado com sucesso:", response);
+  //       },
+  //       error: function (error) {
+  //         console.error("Erro ao criar o tópico:", error);
+  //       },
+  //     });
+  //   },
+  // });
 
   $("#ocultarDiv").click(function () {
     $(".dialog-container").removeClass("animate-slide-right");

@@ -1,10 +1,66 @@
 const elementCanvas = document.querySelectorAll("canvas");
 const canvas = elementCanvas[0];
 
+var start  = true;
+
 const c = canvas.getContext("2d");
 
+    var images = {
+      village: new Image(),
+      villageForeground: new Image(),
+      forest: new Image(),
+      forestForeground: new Image(),
+      house: new Image(),
+      tavern: new Image(),
+      potion: new Image(),
+      blacksmith: new Image(),
+
+
+      playerForward: new Image(),
+      playerBack: new Image(),
+      playerLeft: new Image(),
+      playerRight: new Image(),
+    };
+
+    images.village.src = "public/img/village.png"; // fonte image
+    images.villageForeground.src = "public/img/village-foreground.png";
+    images.forest.src = "public/img/forest.png";
+    images.forestForeground.src = "public/img/forest-foreground.png";
+
+    images.playerForward.src = "public/img/player-forward.png";
+    images.playerBack.src = "public/img/player-back.png";
+    images.playerLeft.src = "public/img/player-left.png";
+    images.playerRight.src = "public/img/player-right.png";
+
+    const keys = ['village','forest'] //'house','tavern','potion','blacksmith'];
+    // Tamanho do mapa
+    const stepSize = [
+      50, // Village
+      40, // Forest
+      15, // House
+    ]
+
+    var collisionsMap = {
+    };
+
+    var interactsMap = {
+    };
+
+    keys.forEach((key,index)=>{
+      collisionsMap[key] = [];
+      interactsMap[key] = [];
+
+    for (let i = 0; i < collisions[index].length; i += stepSize[index]) {
+      collisionsMap.village.push(collisions[index].slice(i, stepSize[index] + i));
+    }
+
+    for (let i = 0; i < interacts[index].length; i +=stepSize[index] ) {
+      interactsMap.village.push(interacts[index].slice(i, stepSize[index] + i));
+    }
+    })
+
 $(function () {
-  function showCanvasMain(image1, image2) {
+  function showCanvasMain(map, foreMap, collisions, interacts) {
     // Coletando a proprosão, lagura e comprimento
     let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
     const aspectRatio = width / height;
@@ -14,21 +70,6 @@ $(function () {
     // Dimensão do jogo
     canvas.width = canvasWidth;
     canvas.height = canvasHeigh;
-
-    const collisionsMap = {
-      village: collisions[0],
-    };
-    const interactsMap = {
-      village: interacts[0],
-    };
-
-    for (let i = 0; i < collisions[0].length; i += 50) {
-      collisionsMap.push(collisions[0].slice(i, 50 + i));
-    }
-
-    for (let i = 0; i < interacts[0].length; i += 50) {
-      interactsMap.push(interacts[0].slice(i, 50 + i));
-    }
 
     // localizao do eixo X e Y onde o troia inicia
     const offset = {
@@ -43,7 +84,7 @@ $(function () {
     const interactionChangePotion = [];
     const interactionChangeBlackSmith = [];
 
-    interactsMap.forEach((row, i) => {
+    interacts.forEach((row, i) => {
       row.forEach((Symbol, j) => {
         if (Symbol === 4171)
           interactionChangeMap.push(
@@ -99,7 +140,7 @@ $(function () {
 
     //  Criando a hitbox de colisão
     const boundaries = [];
-    collisionsMap.forEach((row, i) => {
+    collisions.forEach((row, i) => {
       row.forEach((Symbol, j) => {
         if (Symbol === 4169)
           boundaries.push(
@@ -115,21 +156,6 @@ $(function () {
 
     // instanciando a image
 
-    const images = {
-      village: new Image(),
-      villageForegroundImage: new Image(),
-      playerForward: new Image(),
-      playerBack: new Image(),
-      playerLeft: new Image(),
-      playerRight: new Image(),
-    };
-
-    images.village.src = "public/img/village.png"; // fonte image
-    images.villageForegroundImage.src = image2;
-    images.playerForward.src = "public/img/player-forward.png";
-    images.playerBack.src = "public/img/player-back.png";
-    images.playerLeft.src = "public/img/player-left.png";
-    images.playerRight.src = "public/img/player-right.png";
 
     // Inicando o controle com nenhuma tecla pressionada
     const keys = {
@@ -197,7 +223,6 @@ $(function () {
       }
     });
 
-    console.log(images.playerBack);
     // instanciando o sprite do boneco
     const player = new Sprite({
       position: {
@@ -223,7 +248,7 @@ $(function () {
         x: offset.x,
         y: offset.y,
       },
-      image: images.village,
+      image: map,
     });
 
     // Posição do objetos sobre o personagem ex: arvore
@@ -232,7 +257,7 @@ $(function () {
         x: offset.x,
         y: offset.y,
       },
-      image: images.villageForegroundImage,
+      image: foreMap
     });
 
     // Entepretar a hitbox de colisão
@@ -440,8 +465,10 @@ $(function () {
               rectangle2: interact,
             })
           ) {
-            canvas.style.display = "none";
-            document.getElementById("house").style.display = "block";
+            showCanvasMain(images.forest,
+              images.forestForeground,
+              collisionsMap.forest,
+              interactsMap.forest);
           }
         }
 
@@ -490,34 +517,21 @@ $(function () {
     animation();
   }
 
-  // showCanvasMain(,);
+  console.log("chama canvas");
+  showCanvasMain(images.village,images.villageForeground,collisionsMap.village,interactsMap.village);
 
-  function TradeCanvas(basePath, path2) {
-    let link1 = null;
-    let link2 = null;
+  function gameLoop() {
 
-    if (basePath == null || path2 == null) {
-      link1 = "public/img/village.png"; // Substitua pelo caminho base para suas imagens
-      link2 = "public/img/village-foreground.png";
-    } else {
-      link1 = basePath; // Substitua pelo caminho base para suas imagens
-      link2 = path2;
+    if (start){
+    showCanvasMain(images.village,images.villageForeground,collisionsMap.village,interactsMap.village);
+    start = false
     }
 
-    // Crie um novo canvas
-    var screenWidth = $(window).width();
-    var screenHeight = $(window).height();
+    requireAnimationFrame(gameLoop);
 
-    var canvas = document.getElementById("map");
-    canvas.width = screenWidth;
-    canvas.height = screenHeight;
-    var ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    showCanvasMain(link1, link2);
+    gameLoop()
   }
 
-  TradeCanvas();
 
   // Audio
   /* let clicked = false;
