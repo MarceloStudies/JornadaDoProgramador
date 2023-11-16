@@ -1,66 +1,21 @@
 const elementCanvas = document.querySelectorAll("canvas");
 const canvas = elementCanvas[0];
+const newCanvas = elementCanvas[1];
 
-var start  = true;
-
-const c = canvas.getContext("2d");
-
-    var images = {
-      village: new Image(),
-      villageForeground: new Image(),
-      forest: new Image(),
-      forestForeground: new Image(),
-      house: new Image(),
-      tavern: new Image(),
-      potion: new Image(),
-      blacksmith: new Image(),
-
-
-      playerForward: new Image(),
-      playerBack: new Image(),
-      playerLeft: new Image(),
-      playerRight: new Image(),
-    };
-
-    images.village.src = "public/img/village.png"; // fonte image
-    images.villageForeground.src = "public/img/village-foreground.png";
-    images.forest.src = "public/img/forest.png";
-    images.forestForeground.src = "public/img/forest-foreground.png";
-
-    images.playerForward.src = "public/img/player-forward.png";
-    images.playerBack.src = "public/img/player-back.png";
-    images.playerLeft.src = "public/img/player-left.png";
-    images.playerRight.src = "public/img/player-right.png";
-
-    const keys = ['village','forest'] //'house','tavern','potion','blacksmith'];
-    // Tamanho do mapa
-    const stepSize = [
-      50, // Village
-      40, // Forest
-      15, // House
-    ]
-
-    var collisionsMap = {
-    };
-
-    var interactsMap = {
-    };
-
-    keys.forEach((key,index)=>{
-      collisionsMap[key] = [];
-      interactsMap[key] = [];
-
-    for (let i = 0; i < collisions[index].length; i += stepSize[index]) {
-      collisionsMap.village.push(collisions[index].slice(i, stepSize[index] + i));
-    }
-
-    for (let i = 0; i < interacts[index].length; i +=stepSize[index] ) {
-      interactsMap.village.push(interacts[index].slice(i, stepSize[index] + i));
-    }
-    })
+var c = canvas.getContext("2d");
+var c2 = canvas.getContext("2d");
+var start = true;
 
 $(function () {
-  function showCanvasMain(map, foreMap, collisions, interacts) {
+  function showCanvasMain(
+    map,
+    foreMap,
+    collisions,
+    interacts,
+    player,
+    context,
+  ) {
+    console.log(collisionsMap);
     // Coletando a proprosão, lagura e comprimento
     let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
     const aspectRatio = width / height;
@@ -156,7 +111,6 @@ $(function () {
 
     // instanciando a image
 
-
     // Inicando o controle com nenhuma tecla pressionada
     const keys = {
       w: {
@@ -223,42 +177,47 @@ $(function () {
       }
     });
 
-    // instanciando o sprite do boneco
-    const player = new Sprite({
+    var hero = new Sprite({
       position: {
         //                    {672 e 96} dimensao da imagem do personagem
         x: canvas.width / 2 - 672 / 4 / 2, // coordenada X,
         y: canvas.height / 2 - 96 / 2, // coordenada Y
       },
-      image: images.playerBack, // fonte da imagem
+      image: player.playerBack,
+      context: context,
       frames: {
         max: 3, // quantidade de sprites na imagem
       },
       sprites: {
-        back: images.playerBack,
-        right: images.playerRight, // Sprite do lado direito
-        left: images.playerLeft, // Sprite do lado esquerdo
-        forward: images.playerForward,
+        back: player.playerBack,
+        right: player.playerRight, // Sprite do lado direito
+        left: player.playerLeft, // Sprite do lado esquerdo
+        forward: player.playerForward,
       },
     });
 
     // Posicionar a imagem do map no html
-    const referencePoint = new Sprite({
+
+    var mainMap = new Sprite({
       position: {
         x: offset.x,
         y: offset.y,
       },
       image: map,
+      context: context,
     });
 
     // Posição do objetos sobre o personagem ex: arvore
-    const villageForeground = new Sprite({
+    var foregroundMap = new Sprite({
       position: {
         x: offset.x,
         y: offset.y,
       },
-      image: foreMap
+      image: foreMap,
+      context: context,
     });
+
+    // instanciando o t cavasprite do boneco
 
     // Entepretar a hitbox de colisão
     function rectagularCollision({ rectangle1, rectangle2 }) {
@@ -285,9 +244,9 @@ $(function () {
 
     // Mover imagens no mapa
     const movables = [
-      referencePoint,
+      mainMap,
       ...boundaries,
-      villageForeground,
+      foregroundMap,
       ...interactionChangeMap,
       ...interactionChangeHouse,
       ...interactionChangeTavern,
@@ -298,7 +257,7 @@ $(function () {
     // Animação
     function animation() {
       window.requestAnimationFrame(animation);
-      referencePoint.draw();
+      mainMap.draw();
 
       boundaries.forEach((boundary) => {
         boundary.draw();
@@ -328,20 +287,20 @@ $(function () {
         interact.draw();
       });
 
-      player.draw();
-      villageForeground.draw();
+      hero.draw();
+      foregroundMap.draw();
 
       let moving = true;
-      player.moving = false;
+      hero.moving = false;
       // Andar do personagem para frente
       if (keys.w.pressed && lastKey === "w") {
-        player.moving = true;
-        player.image = player.sprites.forward; // mudar de sprite
+        hero.moving = true;
+        hero.image = hero.sprites.forward; // mudar de sprite
         for (let i = 0; i < boundaries.length; i++) {
           const boundary = boundaries[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: {
                 ...boundary,
                 position: {
@@ -363,13 +322,13 @@ $(function () {
       }
       // Andar do personagem para tras
       if (keys.s.pressed && lastKey === "s") {
-        player.moving = true;
-        player.image = player.sprites.back; // mudar de sprite
+        hero.moving = true;
+        hero.image = hero.sprites.back; // mudar de sprite
         for (let i = 0; i < boundaries.length; i++) {
           const boundary = boundaries[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: {
                 ...boundary,
                 position: {
@@ -388,15 +347,16 @@ $(function () {
             movable.position.y -= 4;
           });
       }
+
       // Andar do personagem para esquerda
       if (keys.a.pressed && lastKey === "a") {
-        player.moving = true;
-        player.image = player.sprites.left; // mudar de sprite
+        hero.moving = true;
+        hero.image = hero.sprites.left; // mudar de sprite
         for (let i = 0; i < boundaries.length; i++) {
           const boundary = boundaries[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: {
                 ...boundary,
                 position: {
@@ -417,13 +377,13 @@ $(function () {
       }
       // Andar do personagem para Direita
       if (keys.d.pressed && lastKey === "d") {
-        player.moving = true;
-        player.image = player.sprites.right; // mudar de sprite
+        hero.moving = true;
+        hero.image = hero.sprites.right; // mudar de sprite
         for (let i = 0; i < boundaries.length; i++) {
           const boundary = boundaries[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: {
                 ...boundary,
                 position: {
@@ -448,7 +408,7 @@ $(function () {
           const interact = interactionChangeMap[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: interact,
             })
           ) {
@@ -461,14 +421,13 @@ $(function () {
           const interact = interactionChangeHouse[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: interact,
             })
           ) {
-            showCanvasMain(images.forest,
-              images.forestForeground,
-              collisionsMap.forest,
-              interactsMap.forest);
+            mainMap.image = images.house;
+            foregroundMap.image = images.houseForeground;
+            collisions = collisionsMap;
           }
         }
 
@@ -476,7 +435,7 @@ $(function () {
           const interact = interactionChangePotion[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: interact,
             })
           ) {
@@ -491,7 +450,7 @@ $(function () {
           const interact = interactionChangeTavern[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: interact,
             })
           ) {
@@ -503,7 +462,7 @@ $(function () {
           const interact = interactionChangeBlackSmith[i];
           if (
             rectagularCollision({
-              rectangle1: player,
+              rectangle1: hero,
               rectangle2: interact,
             })
           ) {
@@ -513,25 +472,18 @@ $(function () {
       }
       keys.e.pressed = false;
     }
-
     animation();
   }
 
-  console.log("chama canvas");
-  showCanvasMain(images.village,images.villageForeground,collisionsMap.village,interactsMap.village);
-
-  function gameLoop() {
-
-    if (start){
-    showCanvasMain(images.village,images.villageForeground,collisionsMap.village,interactsMap.village);
-    start = false
-    }
-
-    requireAnimationFrame(gameLoop);
-
-    gameLoop()
-  }
-
+  console.log("fora da fucntion");
+  showCanvasMain(
+    images.village,
+    images.villageForeground,
+    collisionsMap.village,
+    interactsMap.village,
+    playerImage,
+    c,
+  );
 
   // Audio
   /* let clicked = false;
