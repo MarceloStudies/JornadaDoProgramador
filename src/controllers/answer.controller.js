@@ -56,9 +56,8 @@ exports.create = async (req, res) => {
     }
    };
    
-exports.findQuestions = async (req, res) => {
+   exports.findQuestions = async (req, res) => {
     const topicName = req.params.topicName;
-    const difficulty = req.params.difficulty;
    
     try {
       const topic = await Topic.findOne({ name: topicName });
@@ -66,13 +65,11 @@ exports.findQuestions = async (req, res) => {
         return res.status(404).send();
       }
    
-      const questions = topic.questions.filter(question => question.difficulty === difficulty);
-      res.send(questions);
+      res.send(topic.questions);
     } catch (error) {
       res.status(500).send(error);
     }
-   };
-   
+};
    exports.updateAverageTime = async (req, res) => {
     const { topicId, questionIndex, newAverageTime } = req.body;
   

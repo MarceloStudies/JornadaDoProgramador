@@ -34,7 +34,7 @@ router.get('/getQuestions', topicController.findAll);
 router.get('/getQuestions/:id', topicController.findOne);
 router.put('/updateQuestion/:id', topicController.update);
 router.delete('/deleteQuestion/:id', topicController.delete);
-router.get('/:topicName/questions/:difficulty', topicController.findQuestions);
+router.get('/:topicName/questions', topicController.findQuestions);
 router.put('/updateAverageTimeQuestion', topicController.updateAverageTime);
 
 

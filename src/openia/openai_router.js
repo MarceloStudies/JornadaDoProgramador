@@ -4,7 +4,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const openaiRouter = express.Router();
 
 const openaiConfig = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY, 
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(openaiConfig);
@@ -20,16 +20,24 @@ function generatePrompt(texto) {
   Vilão:`;
 }
 
-
-generateQuestionsPrompt = (text) => {
-  //00 - tema,  01 - range ini, 02 - range de dificuldade, 03 - quantidade, 04 - quantidade de alternativa 
-
-  return `Gere ${text[3]} perguntas sobre ${text[0]} que variam em no nivel de dificuldade entre ${text[1]}  a ${text[2]}
-  cada uma com ${text[4]} alternativas, coloque em formato de json e coloque a resposta para cada uma delas , mostre todos esses elementos no json os parametros e as infos, retorne em json js, nao use /n  
-  `
-
-  // return `Bom dia`;
-}
+generateQuestionsPrompt = (topic) => {
+  return `Gere 4 perguntas sobre ${topic}
+    cada uma com 4 alternativas, coloque em formato de json e coloque a resposta para cada uma delas , mostre todos esses elementos no json os parametros e as infos, retorne em json js, nao use /n  
+    As perguntas devem estar no seguinte formato:
+    {
+      "name": "Nome do topico",
+      "questions": [
+        {
+          "title": "Enunciado da questão ",
+          "alternatives": ["Alternativa 1", "Alternativa 2", "Alternativa 3", "Alternativa 4"],
+          "correctAnswer": "Alternativa correta",
+          "difficulty": "dificuldade de 1.0 a 10.0",
+          "averageResponseTime": "tempo médio de resposta em segundos"
+        },
+      ]
+    }
+    As perguntas devem ser claras e não devem inventar informações aleatórias apenas para preencher. e deixo do jeito para ser passado pra json `;
+};
 
 openaiRouter.post("/responder", async (req, res) => {
   const texto = req.body.texto || "";
@@ -50,26 +58,23 @@ openaiRouter.post("/responder", async (req, res) => {
   }
 });
 
-
 openaiRouter.post("/generateQuestions", async (req, res) => {
-  const texto = req.body.texto || "TEm nada ";
-
+  const texto = req.body.texto || "";
 
   try {
-    const prompt = generateQuestionsPrompt(texto);
-    const resp = await openai.createCompletion({
-      model: "gpt-3.5-turbo-0613",
+    const prompt = generateQuestionsPrompt("texto");
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
       prompt: prompt,
       temperature: 0.2,
-      max_tokens: 503,
+      max_tokens: 1013,
     });
 
-    res.status(200).json(resp.data);
+    res.status(200).json({ resposta: completion.data.choices[0].text });
   } catch (error) {
     console.error(`Erro na requisição à API da OpenAI: ${error.message}`);
     res.status(500).json({ error: "Erro interno do servidor" });
   }
-
 });
 
 module.exports = openaiRouter;

@@ -7,20 +7,29 @@ function plot_dialog() {
 }
 
 $(document).ready(function () {
-
-
-  const param = ['Logica de operadores', 0, 10, 10, 4 ];
   $.ajax({
     type: "POST",
-    url: "/openai/generateQuestions", 
-    data: { texto: param }, 
+    url: "/openai/generateQuestions",
+    data: { texto: "Operadores Lógicos" },
     success: function (response) {
-      console.log("Aquii")
-      console.table(JSON.stringify(response))
-    }
+      let jsonString = response.resposta;
+      jsonString = jsonString.replace(/\n/g, "").replace(/'/g, '"');
+      let jsonObject = JSON.parse(jsonString);
+
+      $.ajax({
+        url: "./api/createQuestions",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(jsonObject),
+        success: function (response) {
+          console.log("Tópico criado com sucesso:", response);
+        },
+        error: function (error) {
+          console.error("Erro ao criar o tópico:", error);
+        },
+      });
+    },
   });
-
-
 
   $("#ocultarDiv").click(function () {
     $(".dialog-container").removeClass("animate-slide-right");
@@ -32,9 +41,7 @@ $(document).ready(function () {
 
   $.fn.recevideMessage = function (answer) {};
 
-
-  const sendMessage = () =>{
-
+  const sendMessage = () => {
     var times = localStorage.getItem("times");
     if (times == null) {
       localStorage.setItem("times", 1);
@@ -42,21 +49,19 @@ $(document).ready(function () {
       localStorage.setItem("times", parseInt(times) + 1);
     }
 
-    let  Qnttimes = localStorage.getItem("times");
-    if (Qnttimes > 2 ){
-      alert("Voce atingiu o limite maximo de perguntas para esse npc! ")
-      return 
+    let Qnttimes = localStorage.getItem("times");
+    if (Qnttimes > 3) {
+      alert("Voce atingiu o limite maximo de perguntas para esse npc! ");
+      return;
     }
-
 
     var message = $("#message").val();
 
     $.ajax({
       type: "POST",
-      url: "/openai/responder", 
-      data: { texto: message }, 
+      url: "/openai/responder",
+      data: { texto: message },
       success: function (response) {
-
         $("#place-message").append(`
         <div class="recevid-message flex flex-row justify-start items-center mb-2">
         <img
@@ -67,7 +72,6 @@ $(document).ready(function () {
         <span class="font-tech text-white ml-2 bg-slate-600 w-1/2 h-10 pl-2 h-full px-2 flex items-center rounded-sm ">${response.resposta}</span>
       </div>
       `);
-
       },
       error: function (error) {
         console.error(
@@ -88,9 +92,7 @@ $(document).ready(function () {
     `);
 
     $("#message").val("");
-    
-
-  }
+  };
 
   $("#send-message").click(function () {
     sendMessage();
@@ -101,5 +103,4 @@ $(document).ready(function () {
       sendMessage();
     }
   });
-
 });

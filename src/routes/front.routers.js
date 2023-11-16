@@ -36,8 +36,11 @@ router.get("/dialog", accessMiddleware.auth, (req, res) => {
   res.render("dialog", { session: req.session });
 });
 
+router.get("/exam", accessMiddleware.auth, (req, res) => {
+  res.render("exam", { session: req.session });
+});
+
 router.get("/terminal", accessMiddleware.auth, (req, res) => {
   res.render("terminal", { session: req.session });
 });
-
 module.exports = router;

@@ -1,54 +1,37 @@
 $(document).ready(function () {
-  const questions = [
-    {
-      question: "Qual é a capital da França?",
-      options: ["Londres", "Paris", "Berlim", "Roma"],
-      correctOption: 1,
-    },
-    {
-      question: "Quem pintou a Mona Lisa?",
-      options: [
-        "Michelangelo",
-        "Vincent van Gogh",
-        "Leonardo da Vinci",
-        "Pablo Picasso",
-      ],
-      correctOption: 2,
-    },
-    {
-      question: "Quantos planetas existem em nosso sistema solar?",
-      options: ["8", "9", "10", "7"],
-      correctOption: 0,
-    },
-    {
-      question: "Qual é o maior mamífero terrestre?",
-      options: [
-        "Elefante Africano",
-        "Rinoceronte Branco",
-        "Girafa",
-        "Hipopótamo",
-      ],
-      correctOption: 0,
-    },
-  ];
-
-  $("#exam").examMaker(questions);
+  // examMaker(questions)
 
   $("#btnCancel").on("click", function () {
     $("#card-exam").removeClass("ease-out");
     $("#card-exam").addClass("ease-in");
     $("#card-exam").addClass("opacity-0");
     $("#card-exam").addClass("hidden");
-
-    
   });
-
 });
 
-$.fn.examMaker = function (questions) {
+function callQuestions(topic) {
+  $.get(`./api/${topic}/questions`, function (data) {
+    const formattedData = data.map((question) => {
+      return {
+        question: question.title,
+        options: question.alternatives,
+        correctOption: question.correctAnswer,
+        averageResponseTime: question.averageResponseTime,
+      };
+    });
+
+    examMaker(formattedData);
+  }).fail(function (err) {
+    console.error("Error:", err);
+  });
+}
+
+function examMaker(questions) {
   let currentQuestion = 0;
   let right = 0;
   let wrong = 0;
+
+  $("#card-exam").removeClass("hidden");
 
   function displayQuestion() {
     $("#numberQuest").text(currentQuestion + 1);
@@ -84,8 +67,7 @@ $.fn.examMaker = function (questions) {
     updateScore();
 
     if (right + wrong === questions.length) {
-      examResultMaker(questions.length, right, wrong);
- 
+      // examResultMaker(questions.length, right, wrong);
     } else {
       $(".transition").removeClass("opacity-100");
 
@@ -101,16 +83,14 @@ $.fn.examMaker = function (questions) {
     }
   });
   displayQuestion();
-};
+}
 const examResultMaker = (lengthQuestions, quantR, quantW) => {
   $("#title-card").text("Resultado");
   $("#question").text("Veja e analise seu desempenho");
 
   $("#body-card").empty();
-  $("#body-card").addClass('justify-center');
+  $("#body-card").addClass("justify-center");
 
-
-  
   $("#body-card").append(
     `<canvas id="myChart"  class"self-center " width="400" height="400"></canvas>`
   );

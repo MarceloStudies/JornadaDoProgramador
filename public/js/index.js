@@ -473,7 +473,7 @@ $(function () {
             rectangle2: interact,
           })
         ) {
-          console.log("Change blacksmith");
+          callQuestions("");
         }
       }
     }
