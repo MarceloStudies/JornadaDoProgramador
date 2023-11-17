@@ -1,3 +1,4 @@
+
 $(function () {
   images = {
     village: new Image(),

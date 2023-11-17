@@ -1,3 +1,4 @@
+
 class Sprite {
   constructor({ position, image, frames = { max: 1 }, sprites }) {
     this.position = position;
