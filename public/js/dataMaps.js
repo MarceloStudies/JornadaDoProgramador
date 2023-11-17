@@ -27,7 +27,7 @@ $(function () {
   playerImage.playerLeft.src = "public/img/player-left.png";
   playerImage.playerRight.src = "public/img/player-right.png";
 
-  const keys = ["village", "forest", "house"]; //'house','tavern','potion','blacksmith'];
+  const keys = ["village", "forest"] //"house"]; //'house','tavern','potion','blacksmith'];
   // Tamanho do mapa
   const stepSize = [
     50, // Village
@@ -42,6 +42,7 @@ $(function () {
   keys.forEach((key, index) => {
     collisionsMap[key] = [];
     interactsMap[key] = [];
+
 
     for (let i = 0; i < collisions[index].length; i += stepSize[index]) {
       collisionsMap[key].push(collisions[index].slice(i, stepSize[index] + i));

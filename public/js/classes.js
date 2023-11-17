@@ -1,6 +1,5 @@
 class Sprite {
-  constructor({ position, image, frames = { max: 1 }, sprites, context }) {
-    console.log(context);
+  constructor({ position, image, frames = { max: 1 }, sprites }) {
     this.position = position;
     this.image = image;
     this.frames = { ...frames, val: 0, elapsed: 0 };
@@ -11,11 +10,10 @@ class Sprite {
     };
     this.moving = false;
     this.sprites = sprites;
-    this.context = context;
   }
 
   draw() {
-    this.context.drawImage(
+    c.drawImage(
       this.image,
       this.frames.val * this.width, // Inicio do sprite
       0, // Altura do sprite
