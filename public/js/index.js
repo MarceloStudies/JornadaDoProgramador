@@ -102,10 +102,10 @@ $(function () {
     });
   });
 
-  var symbolCollision = 4169;
+  let symbolCollision = 4169;
   //  Criando a hitbox de colisão
-  var boundaries = [];
-  var collisions = collisionsMap.village;
+  let boundaries = [];
+  let collisions = collisionsMap.village;
   collisions.forEach((row, i) => {
     row.forEach((Symbol, j) => {
       if (Symbol === symbolCollision)
@@ -247,11 +247,13 @@ $(function () {
     );
   }
 
+  var boundariesn = [];
   // Mover imagens no mapa
   var movables = [
     mainMap,
     ...boundaries,
     foregroundMap,
+    ...boundariesn,
     ...interactionChangeMap,
     ...interactionChangeHouse,
     ...interactionChangeTavern,
@@ -267,6 +269,10 @@ $(function () {
     boundaries.forEach((boundary) => {
       boundary.draw();
     });
+    boundariesn.forEach((boundary) => {
+      boundary.draw();
+    });
+
 
     interactionChangeMap.forEach((interact) => {
       interact.draw();
@@ -419,15 +425,24 @@ $(function () {
         ) {
           mainMap.image = images.forest;
           foregroundMap.image = images.forestForeground;
-          console.log("antigo");
-          console.log(boundaries);
-          console.log("novo");
-          boundaries = generateBoundaries(collisionsMap.forest, 3221227937);
-          console.log(boundaries);
 
-          interacts = interactsMap.forest;
-          // plot_terminl();
-          // plot_dialog();
+             symbolCollision = 3221227937;
+            //  Criando a hitbox de colisão
+             boundaries = [];
+             collisions = collisionsMap.forest;
+            collisions.forEach((row, i) => {
+              row.forEach((Symbol, j) => {
+                if (Symbol === symbolCollision)
+                  boundaries.push(
+                    new Boundary({
+                      position: {
+                        x: j * Boundary.width + offset.x,
+                        y: i * Boundary.height + offset.y,
+                      },
+                    }),
+                  );
+              });
+            });
         }
       }
       for (let i = 0; i < interactionChangeHouse.length; i++) {
