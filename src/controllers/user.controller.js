@@ -125,34 +125,30 @@ exports.showUserLogged = async (req, res) => {
 
 exports.saveAnswer = async (req, res) => {
   try {
-    console.log('saveAnswer called'); 
+    const userName =  req.session.accessToken.nickname;
+    // const userName = '64dab1a975f5ee4a6ecea557';
 
-    const userId = '1';
     const { id, correct, responseTime, topic } = req.body;
 
-    console.log('Request body:', req.body); // log the request body
+    const user = await User.findOne({ userName });
 
-    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // const answerIndex = user.answers.findIndex(answer => answer.topic === topic);
-    // const answerDetail = { id, correct, responseTime };
+    const answerIndex = user.answers.findIndex(answer => answer.topic === topic );
+    const answerDetail = { id, correct, responseTime };
 
-    // if (answerIndex !== -1) {
-    //   // Topic exists, add to it
-    //   user.answers[answerIndex].answer.push(answerDetail);
-    // } else {
-    //   // Topic does not exist, create it
-    //   const answerSchema = { topic, answer: [answerDetail] };
-    //   user.answers.push(answerSchema);
-    // }
+    if (answerIndex !== -1) {
+    user.answers[answerIndex].answer.push(answerDetail);
 
-    // await user.save();
-    // console.log('User saved successfully');
+    }else{
+    user.answers.push({ topic: topic, answer: [answerDetail] });
+    }
 
-    res.status(200).json({ message: 'Answer saved successfully' });
+    await user.save();
+
+    res.status(200).json("1");
   } catch (error) {
     console.error('Error saving the answer:', error); // log the error
     res.status(500).json({ message: 'Error saving the answer' });
@@ -178,28 +174,4 @@ exports.updateFirstAccess = async (req, res) => {
   }
 };
 
-exports.saveUserAnswer = async (req, res) => {
-  try {
-    const { userId, topicId, answerDetail } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    const topic = user.topics.id(topicId);
-    if (topic) {
-      topic.answerDetails.push(answerDetail);
-    } else {
-      user.topics.push({ _id: topicId, answerDetails: [answerDetail] });
-    }
-
-    // Save the user
-    await user.save();
-
-    res.status(200).json({ message: "User answer saved successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "An error occurred", error });
-  }
-};
 

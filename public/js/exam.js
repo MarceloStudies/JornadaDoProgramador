@@ -14,6 +14,7 @@ function callQuestions(topic) {
   $.get(`./api/${topic}/questions`, function (data) {
     const formattedData = data.map((question) => {
       return {
+        topic: topic,
         id: question._id, // assuming the id is stored in _id
         question: question.title,
         options: question.alternatives,
@@ -47,7 +48,7 @@ function examMaker(questions) {
     questions[currentQuestion].options.forEach((option, index) => {
       optionPlace.append(
         `<li class="flex align-baseline gap-2 pb-4 group">
-    <input type="radio" class="radio-answer text-white bg-white" name="answer" value="${index}" />
+    <input type="radio" class="radio-answer text-white bg-white" name="answer" value="${option}" />
     <p class="text-answer group-hover:underline">
       ${option}
     </p>
@@ -57,9 +58,11 @@ function examMaker(questions) {
   }
 
   function updateScore() {
-    const responseTime = Date.now() - startTime;
+    const responseTime = (Date.now() - startTime) / 1000;
     const selectedAnswer = $("input[name='answer']:checked").val();
     const isCorrect = selectedAnswer == questions[currentQuestion].correctOption;
+    alert ( questions[currentQuestion].correctOption);
+    alert (selectedAnswer)
   
     if (isCorrect) {
       right++;
@@ -71,7 +74,7 @@ function examMaker(questions) {
       id: questions[currentQuestion].id,
       correct: isCorrect,
       responseTime: responseTime,
-      topic: 'Variáveis e Tipos de Dados' // replace with the actual topic
+      topic: questions[currentQuestion].topic // replace with the actual topic
     };
   
     // Save answerDetail to the server

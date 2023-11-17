@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const SALT_WORK_FACTOR = 10;
 
 const answerDetailSchema = new mongoose.Schema({
-  id: Number,
+  id: String,
   correct: Boolean,
   responseTime: Number
 });

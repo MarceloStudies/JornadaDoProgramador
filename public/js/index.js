@@ -247,13 +247,11 @@ $(function () {
     );
   }
 
-  var boundariesn = [];
   // Mover imagens no mapa
   var movables = [
     mainMap,
     ...boundaries,
     foregroundMap,
-    ...boundariesn,
     ...interactionChangeMap,
     ...interactionChangeHouse,
     ...interactionChangeTavern,
@@ -269,9 +267,7 @@ $(function () {
     boundaries.forEach((boundary) => {
       boundary.draw();
     });
-    boundariesn.forEach((boundary) => {
-      boundary.draw();
-    });
+
 
 
     interactionChangeMap.forEach((interact) => {
@@ -425,14 +421,14 @@ $(function () {
         ) {
           mainMap.image = images.forest;
           foregroundMap.image = images.forestForeground;
-
-             symbolCollision = 3221227937;
+          boundaries = []
+          symbolCollision = 3221227937;
             //  Criando a hitbox de colisão
-             boundaries = [];
              collisions = collisionsMap.forest;
             collisions.forEach((row, i) => {
               row.forEach((Symbol, j) => {
                 if (Symbol === symbolCollision)
+                
                   boundaries.push(
                     new Boundary({
                       position: {
@@ -443,6 +439,19 @@ $(function () {
                   );
               });
             });
+
+            movables = [
+              mainMap,
+              ...boundaries,
+              foregroundMap,
+              ...interactionChangeMap,
+              ...interactionChangeHouse,
+              ...interactionChangeTavern,
+              ...interactionChangeBlackSmith,
+              ...interactionChangePotion,
+            ];
+
+            
         }
       }
       for (let i = 0; i < interactionChangeHouse.length; i++) {
