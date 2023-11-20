@@ -32,7 +32,7 @@ $(function () {
                 x: j * Boundary.width + offset.x,
                 y: i * Boundary.height + offset.y,
               },
-            }),
+            })
           );
       });
     });
@@ -57,7 +57,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          }),
+          })
         );
 
       if (Symbol === 4170)
@@ -67,7 +67,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          }),
+          })
         );
 
       if (Symbol === 4192)
@@ -77,7 +77,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          }),
+          })
         );
 
       if (Symbol === 4173)
@@ -87,7 +87,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          }),
+          })
         );
 
       if (Symbol === 4172)
@@ -97,7 +97,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          }),
+          })
         );
     });
   });
@@ -115,7 +115,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          }),
+          })
         );
     });
   });
@@ -268,8 +268,6 @@ $(function () {
       boundary.draw();
     });
 
-
-
     interactionChangeMap.forEach((interact) => {
       interact.draw();
     });
@@ -421,37 +419,35 @@ $(function () {
         ) {
           mainMap.image = images.forest;
           foregroundMap.image = images.forestForeground;
-          boundaries = []
+          boundaries = [];
           symbolCollision = 3221227937;
-            //  Criando a hitbox de colisão
-             collisions = collisionsMap.forest;
-            collisions.forEach((row, i) => {
-              row.forEach((Symbol, j) => {
-                if (Symbol === symbolCollision)
-                
-                  boundaries.push(
-                    new Boundary({
-                      position: {
-                        x: j * Boundary.width + offset.x,
-                        y: i * Boundary.height + offset.y,
-                      },
-                    }),
-                  );
-              });
+
+          //  Criando a hitbox de colisão
+          collisions = collisionsMap.forest;
+          collisions.forEach((row, i) => {
+            row.forEach((Symbol, j) => {
+              if (Symbol === symbolCollision)
+                boundaries.push(
+                  new Boundary({
+                    position: {
+                      x: j * Boundary.width + offset.x,
+                      y: i * Boundary.height + offset.y,
+                    },
+                  })
+                );
             });
+          });
 
-            movables = [
-              mainMap,
-              ...boundaries,
-              foregroundMap,
-              ...interactionChangeMap,
-              ...interactionChangeHouse,
-              ...interactionChangeTavern,
-              ...interactionChangeBlackSmith,
-              ...interactionChangePotion,
-            ];
-
-            
+          movables = [
+            mainMap,
+            ...boundaries,
+            foregroundMap,
+            ...interactionChangeMap,
+            ...interactionChangeHouse,
+            ...interactionChangeTavern,
+            ...interactionChangeBlackSmith,
+            ...interactionChangePotion,
+          ];
         }
       }
       for (let i = 0; i < interactionChangeHouse.length; i++) {

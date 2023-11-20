@@ -7,30 +7,7 @@ function plot_dialog() {
 }
 
 $(document).ready(function () {
-  // $.ajax({
-  //   type: "POST",
-  //   url: "/openai/generateQuestions",
-  //   data: { texto: "Funções e Procedimentos" },
-  //   success: function (response) {
-  //     let jsonString = response.resposta;
-  //     jsonString = jsonString.replace(/\n/g, "").replace(/'/g, '"');
-  //     let jsonObject = JSON.parse(jsonString);
-
-  //     $.ajax({
-  //       url: "./api/createQuestions",
-  //       type: "POST",
-  //       contentType: "application/json",
-  //       data: JSON.stringify(jsonObject),
-  //       success: function (response) {
-  //         console.log("Tópico criado com sucesso:", response);
-  //       },
-  //       error: function (error) {
-  //         console.error("Erro ao criar o tópico:", error);
-  //       },
-  //     });
-  //   },
-  // });
-
+  
   $("#ocultarDiv").click(function () {
     $(".dialog-container").removeClass("animate-slide-right");
     $(".dialog-container").addClass("animate-slide-left");
@@ -39,7 +16,7 @@ $(document).ready(function () {
     }, 500);
   });
 
-  $.fn.recevideMessage = function (answer) {};
+  $.fn.recevideMessage = function () {};
 
   const sendMessage = () => {
     var times = localStorage.getItem("times");
@@ -60,7 +37,7 @@ $(document).ready(function () {
     $.ajax({
       type: "POST",
       url: "/openai/responder",
-      data: { texto: message },
+      data: { texto: message, tipo: 1 },
       success: function (response) {
         $("#place-message").append(`
         <div class="recevid-message flex flex-row justify-start items-center mb-2">

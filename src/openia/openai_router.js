@@ -9,15 +9,30 @@ const openaiConfig = new Configuration({
 
 const openai = new OpenAIApi(openaiConfig);
 
-function generatePrompt(texto) {
+function generatePrompt(texto, tipo_vilao) {
   const conversa = texto;
-  return `Fale em português! Você é um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA.
+
+  switch (tipo_vilao) {
+    case 1:
+      return `Fale em português! Você é um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA.
   Herói: Quem é você?
-  Vilão: Eu me chamo Troia e sou o responsável pelo caos na sua vida.
+  Aliado: Eu me chamo Troia e sou o responsável pelo caos na sua vida.
   Herói: Você é mau?
-  Vilão: Eu diria que eu sou o mau! hahahahaa
+  Aliado: Eu diria que eu sou o mau! hahahahaa
   Herói: ${conversa} (responda como um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA. Você se chama Troia e é o responsável pelo caos na vida das pessoas)
-  Vilão:`;
+  Aliado:`;
+    case 2:
+      return `Fale em português! Você é um aliado que está dentro de um mundo medieval e tecnológico, fale como um professor direto e não diga que é uma IA.
+  Herói: Quem é você?
+  Aliado: Eu me chamo Calin e posso te ajudar com suas duvidas sobre os conceitos de programação.
+  Herói: Você é mau?
+  Aliado: Pode ficar tranquilo, estou aqui pra te ajudar
+  Herói: ${conversa} (responda como um professor que está dentro de um mundo medieval e tecnológico,  fale como um professor direto e não diga que é uma IA.)
+  Aliado:`;
+    case 3:
+    case 4:
+    default:
+  }
 }
 
 generateQuestionsPrompt = (topic) => {
@@ -41,9 +56,10 @@ generateQuestionsPrompt = (topic) => {
 
 openaiRouter.post("/responder", async (req, res) => {
   const texto = req.body.texto || "";
+  const tipo = req.body.tipo || 1;
 
   try {
-    const prompt = generatePrompt(texto);
+    const prompt = generatePrompt(texto,tipo);
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,

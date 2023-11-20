@@ -1,7 +1,7 @@
 $(document).ready(function () {
   // examMaker(questions)
 
-  callQuestions("Variáveis e Tipos de Dados");
+  // callQuestions("Variáveis e Tipos de Dados");
 
   $("#btnCancel").on("click", function () {
     $("#card-exam").removeClass("ease-out");
@@ -10,6 +10,10 @@ $(document).ready(function () {
     $("#card-exam").addClass("hidden");
   });
 });
+
+
+
+
 function callQuestions(topic) {
   $.get(`./api/${topic}/questions`, function (data) {
     const formattedData = data.map((question) => {
@@ -60,36 +64,62 @@ function examMaker(questions) {
   function updateScore() {
     const responseTime = (Date.now() - startTime) / 1000;
     const selectedAnswer = $("input[name='answer']:checked").val();
-    const isCorrect = selectedAnswer == questions[currentQuestion].correctOption;
-    alert ( questions[currentQuestion].correctOption);
-    alert (selectedAnswer)
-  
+    const isCorrect =
+      selectedAnswer == questions[currentQuestion].correctOption;
+    alert(questions[currentQuestion].correctOption);
+    alert(selectedAnswer);
+
     if (isCorrect) {
       right++;
     } else {
       wrong++;
     }
-  
+
     const answerDetail = {
       id: questions[currentQuestion].id,
       correct: isCorrect,
       responseTime: responseTime,
-      topic: questions[currentQuestion].topic // replace with the actual topic
+      topic: questions[currentQuestion].topic, // replace with the actual topic
     };
-  
+
     // Save answerDetail to the server
     $.ajax({
-      url: './api/saveAnswer', // update the URL to match the new endpoint
-      type: 'POST', // change the method to POST
+      url: "./api/saveAnswer", // update the URL to match the new endpoint
+      type: "POST", // change the method to POST
       data: answerDetail,
-      success: function(response) {
-        console.log('Answer saved successfully:', response);
+      success: function (response) {
+        console.log("Answer saved successfully:", response);
       },
-      error: function(error) {
-        console.error('Error saving the answer:', error);
-      }
+      error: function (error) {
+        console.error("Error saving the answer:", error);
+      },
     });
   }
+
+  function update_dificult(isCorrect, temp_m, temp_user ) {
+    let points;
+    let dificuldade;
+    $.get("./api/showUserLogged", function (data) {
+       points = data.pontuation;
+    });
+    if (isCorrect){
+      points += (temp_m / temp_user) * 10
+      dificuldade += (temp_m / temp_user)
+    }else if ((points > 0) && !isCorrect){
+      points -= (temp_m / temp_user) * 10
+      if (dificuldade > 0 ){
+        dificuldade -= (temp_m / temp_user)
+      }else{
+        dificuldade = 0
+      }
+    }else{
+      dificuldade = 0
+      points = 0;
+    }
+
+    return points, dificuldade
+  }
+
   $("#btnNext").on("click", function () {
     updateScore();
 
@@ -111,6 +141,7 @@ function examMaker(questions) {
   });
   displayQuestion();
 }
+
 const examResultMaker = (lengthQuestions, quantR, quantW) => {
   $("#title-card").text("Resultado");
   $("#question").text("Veja e analise seu desempenho");
