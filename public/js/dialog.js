@@ -7,7 +7,9 @@ function plot_dialog() {
 }
 
 $(document).ready(function () {
-  
+  $("#message").focus(function() {
+    // alert("O campo de input está sendo utilizado.");
+});
   $("#ocultarDiv").click(function () {
     $(".dialog-container").removeClass("animate-slide-right");
     $(".dialog-container").addClass("animate-slide-left");
@@ -27,26 +29,23 @@ $(document).ready(function () {
     }
 
     let Qnttimes = localStorage.getItem("times");
-    if (Qnttimes > 3) {
-      alert("Voce atingiu o limite maximo de perguntas para esse npc! ");
-      return;
-    }
+    // if (Qnttimes > 3) {
+    //   alert("Voce atingiu o limite maximo de perguntas para esse npc! ");
+    //   return;
+    // }
 
     var message = $("#message").val();
+    var tipo = $("#tipo").val()
 
     $.ajax({
       type: "POST",
       url: "/openai/responder",
-      data: { texto: message, tipo: 1 },
+      data: { texto: message, tipo: tipo },
       success: function (response) {
         $("#place-message").append(`
         <div class="recevid-message flex flex-row justify-start items-center mb-2">
-        <img
-          class="w-8 h-8 rounded-sm"
-          src="https://static.wikia.nocookie.net/dcheroesrpg/images/f/fa/Twoface.jpg/revision/latest/smart/width/371/height/332?cb=20110718182806"
-          alt=""
-        />
-        <span class="font-tech text-white ml-2 bg-slate-600 w-1/2 h-10 pl-2 h-full px-2 flex items-center rounded-sm ">${response.resposta}</span>
+
+        <span class="font-tech text-sm text-white ml-2 bg-slate-600 w-1/2 h-10 pl-2 h-full px-2 flex items-center rounded-sm ">${response.resposta}</span>
       </div>
       `);
       },
@@ -59,12 +58,7 @@ $(document).ready(function () {
 
     $("#place-message").append(`
       <div class="send-message flex flex-row justify-end items-center mb-2">
-        <span class="font-tech text-white mr-2 bg-slate-600 w-1/2 h-10 pr-2 flex items-center  h-full px-2  justify-end rounded-sm ">${message}</span>
-        <img
-          class="w-8 h-8 rounded-sm"
-          src="https://avatars.githubusercontent.com/u/59853942?v=4"
-          alt=""
-        />
+        <span class="font-tech text-sm text-white mr-2 bg-slate-600 w-1/2 h-10 pr-2 flex items-center  h-full px-2  justify-end rounded-sm ">${message}</span>
       </div>
     `);
 

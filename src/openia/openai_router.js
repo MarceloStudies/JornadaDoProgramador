@@ -13,7 +13,7 @@ function generatePrompt(texto, tipo_vilao) {
   const conversa = texto;
 
   switch (tipo_vilao) {
-    case 1:
+    case 1 || "1":
       return `Fale em português! Você é um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA.
   Herói: Quem é você?
   Aliado: Eu me chamo Troia e sou o responsável pelo caos na sua vida.
@@ -32,6 +32,7 @@ function generatePrompt(texto, tipo_vilao) {
     case 3:
     case 4:
     default:
+      return `Nada selecionado fale isso!`
   }
 }
 
@@ -56,18 +57,19 @@ generateQuestionsPrompt = (topic) => {
 
 openaiRouter.post("/responder", async (req, res) => {
   const texto = req.body.texto || "";
-  const tipo = req.body.tipo || 1;
+  const tipo = req.body.tipo || 0;
 
   try {
     const prompt = generatePrompt(texto,tipo);
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: prompt,
-      temperature: 0.2,
-      max_tokens: 1013,
-    });
 
-    res.status(200).json({ resposta: completion.data.choices[0].text });
+    // const completion = await openai.createCompletion({
+    //   model: "text-davinci-003",
+    //   prompt: prompt,
+    //   temperature: 0.3,
+    //   max_tokens: 900,
+    // });
+
+    res.status(200).json({ resposta: tipo});
   } catch (error) {
     console.error(`Erro na requisição à API da OpenAI: ${error.message}`);
     res.status(500).json({ error: "Erro interno do servidor" });

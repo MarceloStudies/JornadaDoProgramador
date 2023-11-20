@@ -9,7 +9,7 @@ $(function () {
   let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
   const aspectRatio = width / height;
   const canvasWidth = width;
-  const canvasHeigh = width / aspectRatio;
+  const canvasHeigh = height;
 
   // Dimensão do jogo
   canvas.width = canvasWidth;
@@ -18,7 +18,7 @@ $(function () {
   // localizao do eixo X e Y onde o troia inicia
   const offset = {
     x: -1650,
-    y: -2700,
+    y: -2800,
   };
 
   function generateBoundaries(newCollisions, newSymbolCollision) {
@@ -480,6 +480,8 @@ $(function () {
             rectangle2: interact,
           })
         ) {
+          plot_dialog();
+          document.getElementById("tipo").value = 2;
           console.log("Change tavern");
         }
       }
@@ -492,7 +494,9 @@ $(function () {
             rectangle2: interact,
           })
         ) {
-          callQuestions("");
+          // callQuestions("");
+          plot_dialog();
+          document.getElementById("tipo").value = 1;
         }
       }
     }
