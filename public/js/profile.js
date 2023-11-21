@@ -148,7 +148,6 @@ $(document).ready(function () {
   });
 
   $("#ocultarDiv").click(function () {
-    alert("ocultar");
     var $profileContainer = $(".profile-container");
     $profileContainer.removeClass("animate-slide-right");
     $profileContainer.addClass("animate-slide-left");

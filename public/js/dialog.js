@@ -1,16 +1,18 @@
-var $dialogContainer = $(".dialog-container");
+var $dialogContainer = $("#dialog");
 
 function plot_dialog() {
-  $dialogContainer.removeClass("hidden");
-  $dialogContainer.addClass("animate-slide-right");
-  $dialogContainer.removeClass("animate-slide-left");
+  if ($dialogContainer.hasClass("hidden")) {
+      $dialogContainer.removeClass("hidden");
+      $dialogContainer.addClass("animate-slide-right");
+      $dialogContainer.removeClass("animate-slide-left");
+  }
 }
 
 $(document).ready(function () {
   $("#message").focus(function() {
-    // alert("O campo de input está sendo utilizado.");
+
 });
-  $("#ocultarDiv").click(function () {
+  $("#ocultarDivDialog").click(function () {
     $(".dialog-container").removeClass("animate-slide-right");
     $(".dialog-container").addClass("animate-slide-left");
     setTimeout(function () {
