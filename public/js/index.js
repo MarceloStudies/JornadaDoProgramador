@@ -21,8 +21,10 @@ $(function () {
     y: -2800,
   };
 
+  let numberOfInteration = 1;
+
   // Criando a hitbox de interação
-  const interactionChangeMap = [];
+  let interactionChangeMap = [];
   const interactionChangeHouse = [];
   const interactionChangeTavern = [];
   const interactionChangePotion = [];
@@ -399,39 +401,63 @@ $(function () {
             rectangle2: interact,
           })
         ) {
-          console.log("Change map");
-          mainMap.image = images.forest;
-          foregroundMap.image = images.forestForeground;
-          boundaries = [];
-          interacts = [];
-          symbolCollision = 2468;
+          const offsetForest = {
+            x: -1574,
+            y: -2969,
+          };
+          if (numberOfInteration == 1) {
+            console.log("Change map");
+            mainMap.image = images.forest;
+            foregroundMap.image = images.forestForeground;
+            boundaries = [];
+            symbolCollision = 2468;
 
-          //  Criando a hitbox de colisão
-          collisions = collisionsMap.forest;
-          collisions.forEach((row, i) => {
-            row.forEach((Symbol, j) => {
-              if (Symbol === symbolCollision)
-                boundaries.push(
-                  new Boundary({
-                    position: {
-                      x: j * Boundary.width + -1574,
-                      y: i * Boundary.height + -2969,
-                    },
-                  }),
-                );
+            //  Criando a hitbox de colisão
+            collisions = collisionsMap.forest;
+            collisions.forEach((row, i) => {
+              row.forEach((Symbol, j) => {
+                if (Symbol === symbolCollision)
+                  boundaries.push(
+                    new Boundary({
+                      position: {
+                        x: j * Boundary.width + offsetForest.x,
+                        y: i * Boundary.height + offsetForest.y,
+                      },
+                    }),
+                  );
+              });
             });
-          });
 
-          movables = [
-            mainMap,
-            ...boundaries,
-            foregroundMap,
-            ...interactionChangeMap,
-            ...interactionChangeHouse,
-            ...interactionChangeTavern,
-            ...interactionChangeBlackSmith,
-            ...interactionChangePotion,
-          ];
+            interactionChangeMap = [];
+            interacts = interactsMap.forest;
+            console.log(interactsMap.forest);
+            interacts.forEach((row, i) => {
+              row.forEach((Symbol, j) => {
+                if (Symbol === 4171)
+                  interactionChangeMap.push(
+                    new Boundary({
+                      position: {
+                        x: j * Boundary.width + offsetForest.x,
+                        y: i * Boundary.height + offsetForest.y,
+                      },
+                    }),
+                  );
+              });
+            });
+
+            movables = [
+              mainMap,
+              ...boundaries,
+              foregroundMap,
+              ...interactionChangeMap,
+              ...interactionChangeHouse,
+              ...interactionChangeTavern,
+              ...interactionChangeBlackSmith,
+              ...interactionChangePotion,
+            ];
+            numberOfInteration += 1;
+          }
+          if (numberOfInteration > 1) console.log("segunda interacao");
         }
       }
       for (let i = 0; i < interactionChangeHouse.length; i++) {
