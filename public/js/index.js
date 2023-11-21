@@ -405,8 +405,10 @@ $(function () {
             x: -1574,
             y: -2969,
           };
+          if (numberOfInteration > 1){
+            callQuestions("Variáveis e Tipos de Dados");
+          }
           if (numberOfInteration == 1) {
-            console.log("Change map");
             mainMap.image = images.forest;
             foregroundMap.image = images.forestForeground;
             boundaries = [];
@@ -457,7 +459,7 @@ $(function () {
             ];
             numberOfInteration += 1;
           }
-          if (numberOfInteration > 1) console.log("segunda interacao");
+
         }
       }
       for (let i = 0; i < interactionChangeHouse.length; i++) {
@@ -492,7 +494,8 @@ $(function () {
         ) {
           plot_dialog();
           document.getElementById("tipo").value = 2;
-          console.log("Change tavern");
+          document.getElementById("nameNpc").value = 'Otavio';
+
         }
       }
 
@@ -503,10 +506,10 @@ $(function () {
             rectangle1: hero,
             rectangle2: interact,
           })
-        ) {
-          // callQuestions("");
+      ) {
+        // callQuestions("");
           plot_dialog();
-          document.getElementById("tipo").value = 1;
+          document.getElementById("tipo").value = 2;
         }
       }
     }

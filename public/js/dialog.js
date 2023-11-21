@@ -35,7 +35,7 @@ $(document).ready(function () {
     // }
 
     var message = $("#message").val();
-    var tipo = $("#tipo").val()
+    var tipo = parseInt($("#tipo").val())
 
     $.ajax({
       type: "POST",

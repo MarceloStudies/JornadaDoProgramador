@@ -1,7 +1,6 @@
 $(document).ready(function () {
   // examMaker(questions)
 
-  // callQuestions("Variáveis e Tipos de Dados");
 
   $("#btnCancel").on("click", function () {
     $("#card-exam").removeClass("ease-out");
@@ -66,8 +65,8 @@ function examMaker(questions) {
     const selectedAnswer = $("input[name='answer']:checked").val();
     const isCorrect =
       selectedAnswer == questions[currentQuestion].correctOption;
-    alert(questions[currentQuestion].correctOption);
-    alert(selectedAnswer);
+    // alert(questions[currentQuestion].correctOption);
+    // alert(selectedAnswer);
 
     if (isCorrect) {
       right++;
@@ -124,7 +123,7 @@ function examMaker(questions) {
     updateScore();
 
     if (right + wrong === questions.length) {
-      // examResultMaker(questions.length, right, wrong);
+      examResultMaker(questions.length, right, wrong);
     } else {
       $(".transition").removeClass("opacity-100");
 
