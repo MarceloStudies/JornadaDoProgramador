@@ -21,24 +21,6 @@ $(function () {
     y: -2800,
   };
 
-  function generateBoundaries(newCollisions, newSymbolCollision) {
-    var boundaries = [];
-    newCollisions.forEach((row, i) => {
-      row.forEach((Symbol, j) => {
-        if (Symbol === newSymbolCollision)
-          boundaries.push(
-            new Boundary({
-              position: {
-                x: j * Boundary.width + offset.x,
-                y: i * Boundary.height + offset.y,
-              },
-            })
-          );
-      });
-    });
-    return boundaries;
-  }
-
   // Criando a hitbox de interação
   const interactionChangeMap = [];
   const interactionChangeHouse = [];
@@ -57,7 +39,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
 
       if (Symbol === 4170)
@@ -67,7 +49,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
 
       if (Symbol === 4192)
@@ -77,7 +59,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
 
       if (Symbol === 4173)
@@ -87,7 +69,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
 
       if (Symbol === 4172)
@@ -97,7 +79,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
     });
   });
@@ -115,7 +97,7 @@ $(function () {
               x: j * Boundary.width + offset.x,
               y: i * Boundary.height + offset.y,
             },
-          })
+          }),
         );
     });
   });
@@ -191,8 +173,8 @@ $(function () {
   var hero = new Sprite({
     position: {
       //                    {672 e 96} dimensao da imagem do personagem
-      x: canvas.width / 2 - 672 / 4 / 2, // coordenada X,
-      y: canvas.height / 2 - 96 / 2, // coordenada Y
+      x: canvas.width / 2 - 144 / 4 / 2, // coordenada X,
+      y: canvas.height / 2 - 92 / 2, // coordenada Y
     },
     image: playerImage.playerBack,
     frames: {
@@ -417,10 +399,12 @@ $(function () {
             rectangle2: interact,
           })
         ) {
+          console.log("Change map");
           mainMap.image = images.forest;
           foregroundMap.image = images.forestForeground;
           boundaries = [];
-          symbolCollision = 3221227937;
+          interacts = [];
+          symbolCollision = 2468;
 
           //  Criando a hitbox de colisão
           collisions = collisionsMap.forest;
@@ -430,10 +414,10 @@ $(function () {
                 boundaries.push(
                   new Boundary({
                     position: {
-                      x: j * Boundary.width + offset.x,
-                      y: i * Boundary.height + offset.y,
+                      x: j * Boundary.width + -1574,
+                      y: i * Boundary.height + -2969,
                     },
-                  })
+                  }),
                 );
             });
           });
