@@ -1,31 +1,34 @@
 $(function () {
-  images = {
+  maps = {
     village: new Image(),
-    villageForeground: new Image(),
     forest: new Image(),
-    forestForeground: new Image(),
     house: new Image(),
     tavern: new Image(),
     potion: new Image(),
     blacksmith: new Image(),
   };
 
-  images.village.src = "public/img/village.png"; // fonte image
-  images.villageForeground.src = "public/img/village-foreground.png";
-  images.forest.src = "public/img/forest.png";
-  images.forestForeground.src = "public/img/forest-foreground.png";
-
-  playerImage = {
-    playerForward: new Image(),
-    playerBack: new Image(),
-    playerLeft: new Image(),
-    playerRight: new Image(),
+  foreMaps = {
+    village: new Image(),
+    forest: new Image(),
   };
 
-  playerImage.playerForward.src = "public/img/player-forward.png";
-  playerImage.playerBack.src = "public/img/player-back.png";
-  playerImage.playerLeft.src = "public/img/player-left.png";
-  playerImage.playerRight.src = "public/img/player-right.png";
+  maps.village.src = "public/img/village.png"; // fonte image
+  foreMaps.village.src = "public/img/village-foreground.png";
+  maps.forest.src = "public/img/forest.png";
+  foreMaps.forest.src = "public/img/forest-foreground.png";
+
+  heroImages = {
+    forward: new Image(),
+    back: new Image(),
+    left: new Image(),
+    right: new Image(),
+  };
+
+  heroImages.forward.src = "public/img/player-forward.png";
+  heroImages.back.src = "public/img/player-back.png";
+  heroImages.left.src = "public/img/player-left.png";
+  heroImages.right.src = "public/img/player-right.png";
 
   const keys = ["village", "forest"]; //"house"]; //'house','tavern','potion','blacksmith'];
   // Tamanho do mapa
