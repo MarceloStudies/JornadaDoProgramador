@@ -1,4 +1,3 @@
-
 class Sprite {
   constructor({ position, image, frames = { max: 1 }, sprites }) {
     this.position = position;
@@ -37,12 +36,12 @@ class Sprite {
 }
 
 class Boundary {
-  static width =  50 * 2; // tamanho do mapa vezes o zoom 32 largura com 4 por causa do zoom de 400
-  static height =  50 * 2; // "" 32 de altura ""
+  static width = 48 * 2; // tamanho do mapa vezes o zoom 32 largura com 4 por causa do zoom de 400
+  static height = 48 * 2; // "" 32 de altura ""
   constructor({ position }) {
     this.position = position;
-    this.width = 120;
-    this.height = 100;
+    this.width = Boundary.width;
+    this.height = Boundary.height;
   }
   draw() {
     c.fillStyle = "rgba(255, 0, 0, 0.0)";

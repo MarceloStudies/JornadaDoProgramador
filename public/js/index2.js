@@ -1,31 +1,37 @@
 const elementCanvas = document.querySelector("canvas");
 const canvas = elementCanvas;
 
-var c = canvas.getContext("2d");
-var start = true;
+const c = canvas.getContext("2d");
 
+// Jquery Principal
 $(function () {
-  // Coletando a proprosão, lagura e comprimento
-  let [width, height] = [$("#map").innerWidth(), $("#map").innerHeight()];
-  const aspectRatio = width / height;
-  const canvasWidth = width;
-  const canvasHeigh = width / aspectRatio;
+  const [canvasWidth, canvasHeight] = [
+    $("#map").innerWidth(),
+    $("#map").innerHeight(),
+  ];
 
-  // Dimensão do jogo
   canvas.width = canvasWidth;
-  canvas.height = canvasHeigh;
+  canvas.height = canvasHeight;
 
-  // localizao do eixo X e Y onde o troia inicia
   const offset = {
     x: -1650,
-    y: -2700,
+    y: -2800,
   };
 
-  function generateBoundaries(newCollisions, newSymbolCollision) {
-    var boundaries = [];
-    newCollisions.forEach((row, i) => {
+  function collisions(collisionMap, hitbox) {
+    const boundaries = [];
+
+    if (!Array.isArray(collisionMap)) {
+      return boundaries;
+    }
+
+    collisionMap.forEach((row, i) => {
+      if (!Array.isArray(row)) {
+        return;
+      }
+
       row.forEach((Symbol, j) => {
-        if (Symbol === newSymbolCollision)
+        if (Symbol === hitbox)
           boundaries.push(
             new Boundary({
               position: {
@@ -36,93 +42,42 @@ $(function () {
           );
       });
     });
+
     return boundaries;
   }
 
-  // Criando a hitbox de interação
-  const interactionChangeMap = [];
-  const interactionChangeHouse = [];
-  const interactionChangeTavern = [];
-  const interactionChangePotion = [];
-  const interactionChangeBlackSmith = [];
+  function interacts(interactMap, symbol) {
+    const interations = [];
 
-  var interacts = interactsMap.forest;
+    if (!Array.isArray(interactMap)) {
+      return interations;
+    }
 
-  interacts.forEach((row, i) => {
-    row.forEach((Symbol, j) => {
-      if (Symbol === 4171)
-        interactionChangeMap.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y,
-            },
-          }),
-        );
+    interactMap.forEach((row, i) => {
+      if (!Array.isArray(row)) {
+        return;
+      }
 
-      if (Symbol === 4170)
-        interactionChangeHouse.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y,
-            },
-          }),
-        );
-
-      if (Symbol === 4192)
-        interactionChangeTavern.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y,
-            },
-          }),
-        );
-
-      if (Symbol === 4173)
-        interactionChangePotion.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y,
-            },
-          }),
-        );
-
-      if (Symbol === 4172)
-        interactionChangeBlackSmith.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y,
-            },
-          }),
-        );
+      row.forEach((Symbol, j) => {
+        if (Symbol === symbol)
+          interations.push(
+            new Boundary({
+              position: {
+                x: j * Boundary.width + offset.x,
+                y: i * Boundary.height + offset.y,
+              },
+            }),
+          );
+      });
     });
-  });
 
-  var symbolCollision = 3221227937 ;
-  //  Criando a hitbox de colisão
-  var boundaries = [];
-  var collisions = collisionsMap.forest;
-  collisions.forEach((row, i) => {
-    row.forEach((Symbol, j) => {
-      if (Symbol === symbolCollision)
-        boundaries.push(
-          new Boundary({
-            position: {
-              x: j * Boundary.width + offset.x,
-              y: i * Boundary.height + offset.y,
-            },
-          }),
-        );
-    });
-  });
+    return interations;
+  }
 
-  // instanciando a image
+  function movable({ data }) {
+    movables = [data.map, ...data.collision, data.foreMap, ...data.interact];
+  }
 
-  // Inicando o controle com nenhuma tecla pressionada
   const keys = {
     w: {
       pressed: false,
@@ -141,10 +96,8 @@ $(function () {
     },
   };
 
-  // LaskKey para indentificar qual foi a ultima tecla pressionada
   let lastKey = "";
 
-  // Interação do teclado com o jogo quando pressionado
   window.addEventListener("keydown", (e) => {
     switch (e.key) {
       case "w":
@@ -170,7 +123,6 @@ $(function () {
     }
   });
 
-  // Mudar o estado do controle se não o boneco anda sozinho
   window.addEventListener("keyup", (e) => {
     switch (e.key) {
       case "w":
@@ -188,157 +140,133 @@ $(function () {
     }
   });
 
-  var hero = new Sprite({
+  const hero = new Sprite({
     position: {
-      //                    {672 e 96} dimensao da imagem do personagem
-      x: canvas.width / 2 - 672 / 4 / 2, // coordenada X,
-      y: canvas.height / 2 - 96 / 2, // coordenada Y
+      x: canvas.width / 2 - 144 / 3 / 2,
+      y: canvas.height / 2 - 92 / 2,
     },
-    image: playerImage.playerBack,
+    image: heroImage.back,
     frames: {
-      max: 3, // quantidade de sprites na imagem
+      max: 3,
     },
     sprites: {
-      back: playerImage.playerBack,
-      right: playerImage.playerRight, // Sprite do lado direito
-      left: playerImage.playerLeft, // Sprite do lado esquerdo
-      forward: playerImage.playerForward,
+      back: heroImage.back,
+      right: heroImage.right,
+      left: heroImage.left,
+      forward: heroImage.forward,
     },
   });
 
-  // Posicionar a imagem do map no html
-
-  var mainMap = new Sprite({
+  const map = new Sprite({
     position: {
       x: offset.x,
       y: offset.y,
     },
-    image: images.forest,
+    image: maps.village,
   });
 
-  // Posição do objetos sobre o personagem ex: arvore
-  var foregroundMap = new Sprite({
+  const foreMap = new Sprite({
     position: {
       x: offset.x,
       y: offset.y,
     },
-    image: images.forestForeground,
+    image: foreMaps.village,
   });
 
-  // instanciando o t cavasprite do boneco
+  let boundaries = collisions(collisionsMap.village, 4169);
+  let interactionChangeMap = interacts(interactsMap.village, 4171);
+  movable({
+    data: {
+      map,
+      collision: boundaries,
+      foreMap,
+      interact: interactionChangeMap,
+    },
+  });
 
-  // Entepretar a hitbox de colisão
-  function rectagularCollision({ rectangle1, rectangle2 }) {
+  function rectagularCollision({ rect1, rect2 }) {
     return (
-      rectangle1.position.x - 19 + rectangle1.width >= rectangle2.position.x &&
-      rectangle1.position.x <= rectangle2.position.x - 19 + rectangle2.width &&
-      rectangle1.position.y <= rectangle2.position.y - 40 + rectangle2.height &&
-      rectangle1.position.y - 19 + rectangle1.height >= rectangle2.position.y
+      rect1.position.x + rect1.width >= rect2.position.x &&
+      rect1.position.x <= rect2.position.x + rect2.width &&
+      rect1.position.y <= rect2.position.y + rect2.height &&
+      rect1.position.y + rect1.height >= rect2.position.y
     );
   }
 
-  // Entepretar a hitbox de interação
-  function rectagularInteract({ rectangle1, rectangle2 }) {
-    return (
-      rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
-      rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
-      rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
-      rectangle1.position.y + rectangle1.height >= rectangle2.position.y
-    );
+  function changeMap(collisionMap, interactMap, mapImage, foreMapImage) {
+    boundaries = collisions(collisionMap);
+    interactionChangeMap = interacts(interactMap);
+
+    map.image = mapImage;
+    foreMap.image = foreMapImage;
+
+    animation();
   }
 
-  var boundariesn = [];
-  // Mover imagens no mapa
-  var movables = [
-    mainMap,
-    ...boundaries,
-    foregroundMap,
-  ];
-
-  // Animação
   function animation() {
     window.requestAnimationFrame(animation);
-    mainMap.draw();
+
+    map.draw();
 
     boundaries.forEach((boundary) => {
       boundary.draw();
     });
-    boundariesn.forEach((boundary) => {
+
+    interactionChangeMap.forEach((boundary) => {
       boundary.draw();
     });
 
-
-    interactionChangeMap.forEach((interact) => {
-      interact.draw();
-    });
-
-    interactionChangeHouse.forEach((interact) => {
-      interact.draw();
-    });
-
-    interactionChangeTavern.forEach((interact) => {
-      interact.draw();
-    });
-
-    interactionChangePotion.forEach((interact) => {
-      interact.draw();
-    });
-
-    interactionChangeTavern.forEach((interact) => {
-      interact.draw();
-    });
-
-    interactionChangeBlackSmith.forEach((interact) => {
-      interact.draw();
-    });
-
     hero.draw();
-    foregroundMap.draw();
+    foreMap.draw();
 
     let moving = true;
     hero.moving = false;
-    // Andar do personagem para frente
+
     if (keys.w.pressed && lastKey === "w") {
       hero.moving = true;
-      hero.image = hero.sprites.forward; // mudar de sprite
+      hero.image = hero.sprites.forward;
+
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
+
         if (
           rectagularCollision({
-            rectangle1: hero,
-            rectangle2: {
+            rect1: hero,
+            rect2: {
               ...boundary,
               position: {
                 x: boundary.position.x,
-                y: boundary.position.y + 4,
+                y: boundary.position.y + 3,
               },
             },
           })
         ) {
-          // myAlert("Colisao");
           moving = false;
           break;
         }
       }
+
       if (moving)
         movables.forEach((movable) => {
-          movable.position.y += 4;
+          movable.position.y += 3;
         });
     }
-    // Andar do personagem para tras
+
     if (keys.s.pressed && lastKey === "s") {
       hero.moving = true;
-      hero.image = hero.sprites.back; // mudar de sprite
+      hero.image = hero.sprites.back;
+
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
+
         if (
           rectagularCollision({
-            rectangle1: hero,
-            rectangle2: {
+            rect1: hero,
+            rect2: {
               ...boundary,
               position: {
                 x: boundary.position.x,
-                y: boundary.position.y - 4,
+                y: boundary.position.y - 3,
               },
             },
           })
@@ -347,26 +275,27 @@ $(function () {
           break;
         }
       }
+
       if (moving)
         movables.forEach((movable) => {
-          movable.position.y -= 4;
+          movable.position.y -= 3;
         });
     }
 
-
-    // Andar do personagem para esquerda
     if (keys.a.pressed && lastKey === "a") {
       hero.moving = true;
-      hero.image = hero.sprites.left; // mudar de sprite
+      hero.image = hero.sprites.left;
+
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
+
         if (
           rectagularCollision({
-            rectangle1: hero,
-            rectangle2: {
+            rect1: hero,
+            rect2: {
               ...boundary,
               position: {
-                x: boundary.position.x + 4,
+                x: boundary.position.x + 3,
                 y: boundary.position.y,
               },
             },
@@ -376,24 +305,27 @@ $(function () {
           break;
         }
       }
+
       if (moving)
         movables.forEach((movable) => {
-          movable.position.x += 4;
+          movable.position.x += 3;
         });
     }
-    // Andar do personagem para Direita
+
     if (keys.d.pressed && lastKey === "d") {
       hero.moving = true;
-      hero.image = hero.sprites.right; // mudar de sprite
+      hero.image = hero.sprites.right;
+
       for (let i = 0; i < boundaries.length; i++) {
         const boundary = boundaries[i];
+
         if (
           rectagularCollision({
-            rectangle1: hero,
-            rectangle2: {
+            rect1: hero,
+            rect2: {
               ...boundary,
               position: {
-                x: boundary.position.x - 4,
+                x: boundary.position.x - 3,
                 y: boundary.position.y,
               },
             },
@@ -403,87 +335,39 @@ $(function () {
           break;
         }
       }
+
       if (moving)
         movables.forEach((movable) => {
-          movable.position.x -= 4;
+          movable.position.x -= 3;
         });
     }
-    // Botao de interação
+
     if (keys.e.pressed) {
       for (let i = 0; i < interactionChangeMap.length; i++) {
         const interact = interactionChangeMap[i];
-        if (
-          rectagularCollision({
-            rectangle1: hero,
-            rectangle2: interact,
-          })
-        ) {
-          mainMap.image = images.forest;
-          foregroundMap.image = images.forestForeground;
-          boundaries = []
-          boundariesn = generateBoundaries(collisionsMap.forest, 3221227937);
 
-          interacts = interactsMap.forest;
-          // plot_terminl();
-          // plot_dialog();
-        }
-      }
-      for (let i = 0; i < interactionChangeHouse.length; i++) {
-        const interact = interactionChangeHouse[i];
         if (
           rectagularCollision({
-            rectangle1: hero,
-            rectangle2: interact,
+            rect1: hero,
+            rect2: {
+              ...interact,
+            },
           })
         ) {
-        }
-      }
-
-      for (let i = 0; i < interactionChangePotion.length; i++) {
-        const interact = interactionChangePotion[i];
-        if (
-          rectagularCollision({
-            rectangle1: hero,
-            rectangle2: interact,
-          })
-        ) {
-        }
-      }
-
-      for (let i = 0; i < interactionChangeTavern.length; i++) {
-        const interact = interactionChangeTavern[i];
-        if (
-          rectagularCollision({
-            rectangle1: hero,
-            rectangle2: interact,
-          })
-        ) {
-          console.log("Change tavern");
-        }
-      }
-
-      for (let i = 0; i < interactionChangeBlackSmith.length; i++) {
-        const interact = interactionChangeBlackSmith[i];
-        if (
-          rectagularCollision({
-            rectangle1: hero,
-            rectangle2: interact,
-          })
-        ) {
-          callQuestions("");
+          console.log("press e");
+          changeMap(
+            collisions(collisionsMap.forest, 2468),
+            interacts(interactsMap.forest, 4171),
+            maps.forest,
+            foreMaps.forest,
+          );
         }
       }
     }
+
     keys.e.pressed = false;
+    moving = false;
   }
-  animation();
 
-  // Audio
-  /* let clicked = false;
-  addEventListener("click", () => {
-    if (!clicked) {
-      audio.Map.play();
-      clicked = true;
-    }
-  }); */
+  animation();
 });
