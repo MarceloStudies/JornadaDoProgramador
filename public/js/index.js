@@ -32,7 +32,7 @@ $(function () {
                 x: j * Boundary.width + offset.x,
                 y: i * Boundary.height + offset.y,
               },
-            }),
+            })
           );
       });
     });
@@ -42,23 +42,37 @@ $(function () {
     const interactions = [];
     interacts.forEach((row, i) => {
       row.forEach((Symbol, j) => {
-        if (Symbol === symbol)
+        if (symbol.includes(Symbol)) {
+
+          const isNPC = Symbol === 5000;
+          
           interactions.push(
             new Boundary({
               position: {
                 x: j * Boundary.width + offset.x,
                 y: i * Boundary.height + offset.y,
               },
-            }),
+              isNPC: isNPC,
+            })
           );
+        }
       });
     });
     return interactions;
   }
 
+  const mapInteractions = {
+    village: [4171, 4170, 4172, 4173, 4192],
+    forest: [4171,5000],
+  };
+
   //  Criando a hitbox de colisão
   var boundaries = collisionsBoundaries(collisionsMap.village, 4169, offset);
-  var interactions = interactionsBoundaries(interactsMap.village, 4171, offset);
+  var interactions = interactionsBoundaries(
+    interactsMap.village,
+    mapInteractions.village,
+    offset
+  );
 
   // Inicando o controle com nenhuma tecla pressionada
   const keys = {
@@ -318,23 +332,27 @@ $(function () {
             x: -1574,
             y: -2969,
           };
-          // callQuestions("Variáveis e Tipos de Dados");
-          map.image = maps.forest;
-          foreMap.image = foreMaps.forest;
+          if (interact.isNPC) {
+            alert("npc");
+            // callQuestions("Variáveis e Tipos de Dados");
+          } else {
+            map.image = maps.forest;
+            foreMap.image = foreMaps.forest;
 
-          boundaries = collisionsBoundaries(
-            collisionsMap.forest,
-            2468,
-            offsetForest,
-          );
+            boundaries = collisionsBoundaries(
+              collisionsMap.forest,
+              2468,
+              offsetForest
+            );
 
-          interactions = interactionsBoundaries(
-            interactsMap.forest,
-            4171,
-            offsetForest,
-          );
+            interactions = interactionsBoundaries(
+              interactsMap.forest,
+              mapInteractions.forest,
+              offsetForest
+            );
 
-          movables = [map, ...boundaries, foreMap, ...interactions];
+            movables = [map, ...boundaries, foreMap, ...interactions];
+          }
         }
       }
     }

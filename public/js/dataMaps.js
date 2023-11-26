@@ -11,12 +11,16 @@ $(function () {
   foreMaps = {
     village: new Image(),
     forest: new Image(),
+    house: new Image(),
   };
 
   maps.village.src = "public/img/village.png"; // fonte image
-  foreMaps.village.src = "public/img/village-foreground.png";
   maps.forest.src = "public/img/forest.png";
+  maps.house.src = "public/img/house.png";
+
+  foreMaps.village.src = "public/img/village-foreground.png";
   foreMaps.forest.src = "public/img/forest-foreground.png";
+  foreMaps.house.src = "public/img/house-foreground.png";
 
   heroImages = {
     forward: new Image(),
@@ -30,12 +34,14 @@ $(function () {
   heroImages.left.src = "public/img/player-left.png";
   heroImages.right.src = "public/img/player-right.png";
 
-  const keys = ["village", "forest"]; //"house"]; //'house','tavern','potion','blacksmith'];
+  const keys = ["village", "forest", "house", "blacksmith"]; // 'tavern','potion','blacksmith'];
+
   // Tamanho do mapa
   const stepSize = [
     50, // Village
     50, // Forest
     15, // House
+    20, // blacksmith
   ];
 
   collisionsMap = {};
