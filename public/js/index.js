@@ -43,9 +43,17 @@ $(function () {
     interacts.forEach((row, i) => {
       row.forEach((Symbol, j) => {
         if (symbol.includes(Symbol)) {
-
           const isNPC = Symbol === 5000;
-          
+          let nameMap = "";
+          switch (Symbol) {
+            case 4171:
+              nameMap = "forest";
+              break;
+            case 4170:
+              nameMap = "village";
+              break;
+          }
+
           interactions.push(
             new Boundary({
               position: {
@@ -53,6 +61,7 @@ $(function () {
                 y: i * Boundary.height + offset.y,
               },
               isNPC: isNPC,
+              nameMap: nameMap,
             })
           );
         }
@@ -63,7 +72,7 @@ $(function () {
 
   const mapInteractions = {
     village: [4171, 4170, 4172, 4173, 4192],
-    forest: [4171,5000],
+    forest: [4170, 5000],
   };
 
   //  Criando a hitbox de colisão
@@ -335,7 +344,29 @@ $(function () {
           if (interact.isNPC) {
             alert("npc");
             // callQuestions("Variáveis e Tipos de Dados");
-          } else {
+          } else if (interact.nameMap === "village") {
+            const offsetVillage = {
+              x: -1650,
+              y: -2800,
+            };
+
+            map.image = maps.village;
+            foreMap.image = foreMaps.village;
+
+            boundaries = collisionsBoundaries(
+              collisionsMap.village,
+              4169,
+              offsetVillage
+            );
+
+            interactions = interactionsBoundaries(
+              interactsMap.village,
+              mapInteractions.village,
+              offsetVillage
+            );
+
+            //
+          } else if (interact.nameMap === "forest") {
             map.image = maps.forest;
             foreMap.image = foreMaps.forest;
 
@@ -350,9 +381,9 @@ $(function () {
               mapInteractions.forest,
               offsetForest
             );
-
-            movables = [map, ...boundaries, foreMap, ...interactions];
           }
+
+          movables = [map, ...boundaries, foreMap, ...interactions];
         }
       }
     }

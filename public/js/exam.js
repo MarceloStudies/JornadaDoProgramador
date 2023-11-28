@@ -1,6 +1,7 @@
 $(document).ready(function () {
   // examMaker(questions)
-
+´ 
+  callQuestions("");
 
   $("#btnCancel").on("click", function () {
     $("#card-exam").removeClass("ease-out");
@@ -9,9 +10,6 @@ $(document).ready(function () {
     $("#card-exam").addClass("hidden");
   });
 });
-
-
-
 
 function callQuestions(topic) {
   $.get(`./api/${topic}/questions`, function (data) {
@@ -88,6 +86,7 @@ function examMaker(questions) {
       data: answerDetail,
       success: function (response) {
         console.log("Answer saved successfully:", response);
+        console.log(update_dificult(isCorrect, 1000, responseTime));
       },
       error: function (error) {
         console.error("Error saving the answer:", error);
@@ -95,28 +94,28 @@ function examMaker(questions) {
     });
   }
 
-  function update_dificult(isCorrect, temp_m, temp_user ) {
+  function update_dificult(isCorrect, temp_m, temp_user) {
     let points;
     let dificuldade;
     $.get("./api/showUserLogged", function (data) {
-       points = data.pontuation;
+      points = data.pontuation;
     });
-    if (isCorrect){
-      points += (temp_m / temp_user) * 10
-      dificuldade += (temp_m / temp_user)
-    }else if ((points > 0) && !isCorrect){
-      points -= (temp_m / temp_user) * 10
-      if (dificuldade > 0 ){
-        dificuldade -= (temp_m / temp_user)
-      }else{
-        dificuldade = 0
+    if (isCorrect) {
+      points += (temp_m / temp_user) * 10;
+      dificuldade += temp_m / temp_user;
+    } else if (points > 0 && !isCorrect) {
+      points -= (temp_m / temp_user) * 10;
+      if (dificuldade > 0) {
+        dificuldade -= temp_m / temp_user;
+      } else {
+        dificuldade = 0;
       }
-    }else{
-      dificuldade = 0
+    } else {
+      dificuldade = 0;
       points = 0;
     }
 
-    return points, dificuldade
+    return points, dificuldade;
   }
 
   $("#btnNext").on("click", function () {

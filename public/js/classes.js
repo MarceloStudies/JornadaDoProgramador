@@ -38,15 +38,16 @@ class Sprite {
 class Boundary {
   static width = 48 * 2;
   static height = 48 * 2;
-  constructor({ position, isNPC = false }) {
+  constructor({ position, isNPC = false, nameMap = "nothing" }) {
     this.position = position;
     this.width = Boundary.width;
     this.height = Boundary.height;
     this.isNPC = isNPC;
+    this.nameMap = nameMap;
   }
   draw() {
     c.fillStyle = "rgba(255, 0, 0, 0.0)";
-    // c.fillStyle = "red";
+    c.fillStyle = "red";
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
