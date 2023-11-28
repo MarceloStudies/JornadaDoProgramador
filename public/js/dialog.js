@@ -9,6 +9,7 @@ function plot_dialog() {
 }
 
 $(document).ready(function () {
+
   $("#message").focus(function() {
 
 });
@@ -37,7 +38,7 @@ $(document).ready(function () {
     // }
 
     var message = $("#message").val();
-    var tipo = parseInt($("#tipo").val())
+    var tipo  = Math.floor(Math.random() * 5) + 1;
 
     $.ajax({
       type: "POST",

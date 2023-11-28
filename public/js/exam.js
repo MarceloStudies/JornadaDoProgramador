@@ -1,7 +1,18 @@
 $(document).ready(function () {
   // examMaker(questions)
-´ 
-  callQuestions("");
+
+  // callQuestions("Variáveis e Tipos de Dados");
+  // $.post('./openai/generateQuestions', function(data){
+  //   console.log(data)
+  // })
+
+  topics = ['Algoritmos', 'Variáveis e Tipos de Dados', 'Estruturas de Controle']
+  
+
+  $.get('./api/getQuestions', function(data){
+    console.table(data)
+  })
+  
 
   $("#btnCancel").on("click", function () {
     $("#card-exam").removeClass("ease-out");
@@ -11,7 +22,8 @@ $(document).ready(function () {
   });
 });
 
-function callQuestions(topic) {
+function callQuestions() {
+  let topic = topics[Math.floor(Math.random() * topics.length)];
   $.get(`./api/${topic}/questions`, function (data) {
     const formattedData = data.map((question) => {
       return {
@@ -57,19 +69,30 @@ function examMaker(questions) {
       );
     });
   }
-
+  let heartCounter = 0; // Inicializa o contador de corações
   function updateScore() {
     const responseTime = (Date.now() - startTime) / 1000;
     const selectedAnswer = $("input[name='answer']:checked").val();
     const isCorrect =
       selectedAnswer == questions[currentQuestion].correctOption;
-    // alert(questions[currentQuestion].correctOption);
-    // alert(selectedAnswer);
 
+    
+    const hearts = document.querySelectorAll('.vida'); // Seleciona todos os elementos com a classe "vida"
+     
+    
+    // ...
+    
     if (isCorrect) {
       right++;
     } else {
       wrong++;
+      if (heartCounter < hearts.length) {
+        hearts[heartCounter].style.display = 'none'; // Esconde o coração
+        heartCounter++; // Incrementa o contador de corações
+      }else{
+        alert("Game over!")
+        window.location.replace("./game");
+      }
     }
 
     const answerDetail = {

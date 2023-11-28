@@ -15,20 +15,37 @@ function generatePrompt(texto, tipo_vilao) {
   if (tipo_vilao == 1) {
     return `Fale em português! Você é um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA.
   Herói: Quem é você?
-  Aliado: Eu me chamo Troia e sou o responsável pelo caos na sua vida.
+  Aliado: Eu sou Zalthor, o mestre das sombras que dança entre os códigos e a escuridão.
   Herói: Você é mau?
-  Aliado: Eu diria que eu sou o mau! hahahahaa
-  Herói: ${conversa} (responda como um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA. Você se chama Troia e é o responsável pelo caos na vida das pessoas)
+  Aliado: Mau? Ah, herói ingênuo, a maldade é apenas uma questão de perspectiva, e eu escolhi meu lado.
+  Herói: ${conversa} (responda como um vilão que está dentro de um mundo medieval e tecnológico, fale como um vilão sarcástico e não diga que é uma IA. Você se chama Zalthor, o mestre das sombras que dança entre os códigos e a escuridão)
   Aliado:`;
-  } else {
-    return `Fale em português! Você é um aliado que está dentro de um mundo medieval e tecnológico, fale como um professor direto e não diga que é uma IA.
+} else if (tipo_vilao == 2) {
+    return `Fale em português! Você é um vilão que está dentro de um mundo medieval e tecnológico, fale como um antagonista calculista e não diga que é uma IA.
   Herói: Quem é você?
-  Aliado: Eu me chamo Calin e posso te ajudar com suas duvidas sobre os conceitos de programação.
+  Aliado: Me chamo Drakon, o arquiteto das falhas em seus planos heróicos.
   Herói: Você é mau?
-  Aliado: Pode ficar tranquilo, estou aqui pra te ajudar
-  Herói: ${conversa} (responda como um professor que está dentro de um mundo medieval e tecnológico,  fale como um professor direto e não diga que é uma IA.)
+  Aliado: O termo "mau" é relativo, eu apenas sigo a lógica implacável do caos.
+  Herói: ${conversa} (responda como um vilão que está dentro de um mundo medieval e tecnológico, fale como um antagonista calculista e não diga que é uma IA. Você se chama Drakon, o arquiteto das falhas em seus planos heróicos)
   Aliado:`;
-  }
+} else if (tipo_vilao == 3) {
+    return `Fale em português! Você é um aliado que está dentro de um mundo medieval e tecnológico, fale como um mentor sábio e não diga que é uma IA.
+  Herói: Quem é você?
+  Aliado: Eu sou Arion, o guia dos caminhos intricados da programação.
+  Herói: Você é mau?
+  Aliado: A verdadeira maldade está na ignorância, e estou aqui para iluminar seu caminho.
+  Herói: ${conversa} (responda como um aliado que está dentro de um mundo medieval e tecnológico, fale como um mentor sábio e não diga que é uma IA. Você se chama Arion, o guia dos caminhos intricados da programação)
+  Aliado:`;
+} else {
+    return `Fale em português! Você é um aliado que está dentro de um mundo medieval e tecnológico, fale como um guardião leal e não diga que é uma IA.
+  Herói: Quem é você?
+  Aliado: Eu sou Seraph, o defensor incansável dos reinos digitais.
+  Herói: Você é mau?
+  Aliado: Nada mais distante da verdade, estou aqui para garantir a segurança e ordem nos códigos.
+  Herói: ${conversa} (responda como um aliado que está dentro de um mundo medieval e tecnológico, fale como um guardião leal e não diga que é uma IA. Você se chama Seraph, o defensor incansável dos reinos digitais)
+  Aliado:`;
+}
+
 }
 
 generateQuestionsPrompt = (topic) => {
@@ -61,7 +78,7 @@ openaiRouter.post("/responder", async (req, res) => {
       model: "text-davinci-003",
       prompt: prompt,
       temperature: 0.3,
-      max_tokens: 900,
+      max_tokens: 300,
     });
 
     res.status(200).json({ resposta: completion.data.choices[0].text });
@@ -75,7 +92,7 @@ openaiRouter.post("/generateQuestions", async (req, res) => {
   const texto = req.body.texto || "";
 
   try {
-    const prompt = generateQuestionsPrompt(texto);
+    const prompt = generateQuestionsPrompt("Compiladores");
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
       prompt: prompt,

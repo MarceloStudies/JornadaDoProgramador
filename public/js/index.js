@@ -342,8 +342,14 @@ $(function () {
             y: -2969,
           };
           if (interact.isNPC) {
-            alert("npc");
-            // callQuestions("Variáveis e Tipos de Dados");
+            const functions = [
+              function() { callQuestions(); },
+              function() { plot_dialog(); }
+            ];
+          
+            const randomFunction = functions[Math.floor(Math.random() * functions.length)];
+            randomFunction();
+
           } else if (interact.nameMap === "village") {
             const offsetVillage = {
               x: -1650,
